@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "ArtifactData",
+      "Artifact",
+      "Bash(node scripts/apply-projects.mjs *)",
+      "mcp__hostinger-mcp",
+      "mcp__hostinger-api-mcp",
+      "mcp__hostinger"
+    ]
+  }
+}

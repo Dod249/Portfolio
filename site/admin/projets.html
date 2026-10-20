@@ -1,0 +1,1247 @@
+<title>Projets du portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@300;400;500&family=Geist+Pixel&display=swap">
+<style>
+/* Layout: one dark workspace — project list on the left, the selected project's
+   editor on the right (in working order: title, image, infos, text, gallery),
+   a publish bar on top. Black & white pixel world, same as the site. */
+:root {
+	--ink: #0e0e0e;
+	--panel: #151515;
+	--line: #262626;
+	--line-2: #3a3a3a;
+	--paper: #f2f2f2;
+	--stone: #7b7b7b;
+	--danger: #ff6b5b;
+	--pixel: 'Geist Pixel', 'Geist Mono', ui-monospace, monospace;
+	--mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+	color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { background: var(--ink); color: var(--paper); }
+body { font: 13px/1.55 var(--mono); padding-inline: 16px; padding-block: 0 40px; -webkit-font-smoothing: antialiased; }
+button, input, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; background: none; border: 0; padding: 0; }
+button:disabled { cursor: not-allowed; }
+:focus-visible { outline: 1px solid var(--paper); outline-offset: 2px; }
+.label { font-size: 10px; letter-spacing: .22em; text-transform: uppercase; color: var(--stone); }
+.sq { display: inline-block; width: 7px; height: 7px; background: var(--paper); flex: none; }
+.sq.o { background: none; border: 1px solid var(--paper); }
+.sq.ok { background: var(--paper); }
+.sq.bad { background: var(--danger); }
+@keyframes blink { 50% { opacity: 0; } }
+.blink { animation: blink 1.05s steps(1) infinite; }
+@media (prefers-reduced-motion: reduce) { .blink { animation: none; } }
+[hidden] { display: none !important; }
+
+/* ---------- Buttons ---------- */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; border: 1px solid var(--paper); padding: 11px 16px; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; transition: background .15s steps(2), color .15s steps(2); white-space: nowrap; }
+.btn:hover:not(:disabled) { background: var(--paper); color: var(--ink); }
+.btn.primary { background: var(--paper); color: var(--ink); }
+.btn.primary:hover:not(:disabled) { background: var(--ink); color: var(--paper); }
+.btn:disabled { opacity: .35; }
+.btn.state { opacity: 1; border-color: var(--line-2); background: transparent; color: var(--stone); cursor: default; }
+.btn.small { padding: 7px 10px; font-size: 10px; }
+.btn.ghost { border-color: var(--line-2); color: var(--stone); }
+.btn.ghost:hover:not(:disabled) { border-color: var(--paper); color: var(--ink); }
+.btn.danger { border-color: var(--danger); color: var(--danger); }
+.btn.danger:hover:not(:disabled) { background: var(--danger); color: var(--ink); }
+.count { display: inline-grid; place-items: center; min-width: 18px; height: 18px; padding: 0 4px; background: var(--ink); color: var(--paper); font-size: 10px; letter-spacing: 0; }
+.btn.primary:hover .count { background: var(--paper); color: var(--ink); }
+
+/* ---------- Top bar ---------- */
+.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--ink); border-bottom: 1px solid var(--line); margin-inline: -16px; padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px 20px; flex-wrap: wrap; }
+.brand { display: flex; align-items: center; gap: 10px; font: 16px var(--pixel); letter-spacing: .16em; text-transform: uppercase; min-width: 0; }
+.brand b { font-weight: 400; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.logo { display: block; height: 20px; width: auto; flex: none; }
+.brand small { font: 10px var(--mono); letter-spacing: .22em; color: var(--stone); white-space: nowrap; }
+.publish { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; justify-content: flex-end; }
+.status { display: flex; align-items: center; gap: 8px; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; min-width: 0; white-space: nowrap; cursor: default; }
+.status.err { color: var(--danger); }
+.status.err .sq { background: var(--danger); }
+
+.notice { margin-top: 16px; border: 1px solid var(--line); padding: 12px 14px; display: flex; gap: 12px; align-items: flex-start; }
+.notice p { margin: 0; color: var(--stone); }
+.notice strong { color: var(--paper); font-weight: 500; }
+
+/* ---------- Workspace ---------- */
+.work { display: grid; grid-template-columns: minmax(0, 320px) minmax(0, 1fr); gap: 24px; margin-top: 20px; align-items: start; }
+@media (max-width: 880px) { .work { grid-template-columns: minmax(0, 1fr); } }
+
+/* Project list */
+.side { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 78px); display: flex; flex-direction: column; gap: 10px; }
+@media (max-width: 880px) { .side { position: static; } }
+.side-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); max-height: calc(100vh - 190px); overflow-y: auto; }
+@media (max-width: 880px) { .list { max-height: none; } }
+.row { display: grid; grid-template-columns: 40px minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 8px 6px; border-bottom: 1px solid var(--line); cursor: pointer; position: relative; }
+.row:hover { background: var(--panel); }
+.row.sel { background: var(--paper); color: var(--ink); }
+.row.off .thumb, .row.off .rt b { opacity: .45; }
+.thumb { width: 40px; height: 50px; background: var(--line); object-fit: cover; display: block; filter: grayscale(1); }
+.rt { min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+.rt b { font: 15px/1.1 var(--pixel); text-transform: uppercase; font-weight: 400; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.meta { display: flex; align-items: center; gap: 6px; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--stone); overflow: hidden; white-space: nowrap; }
+.row.sel .meta { color: rgba(14,14,14,.6); }
+.pill { font-size: 9px; letter-spacing: .14em; text-transform: uppercase; border: 1px solid currentColor; padding: 0 4px; line-height: 15px; }
+.move { display: flex; flex-direction: column; gap: 2px; opacity: 0; }
+.row:hover .move, .row.sel .move, .row:focus-within .move { opacity: 1; }
+@media (hover: none) { .move { opacity: 1; } }
+.move button { width: 22px; height: 20px; border: 1px solid currentColor; font-size: 10px; line-height: 1; }
+.move button:disabled { opacity: .2; }
+.empty { border: 1px dashed var(--line); padding: 26px 18px; text-align: center; color: var(--stone); }
+
+/* Editor */
+.editor { border: 1px solid var(--line); min-width: 0; }
+.ed-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 14px; border-bottom: 1px solid var(--line); flex-wrap: wrap; }
+.back { display: none; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--stone); }
+@media (max-width: 880px) { .back { display: inline-flex; } }
+.saved { font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--stone); display: flex; align-items: center; gap: 8px; margin-left: auto; }
+.ed-body { padding: 22px 18px 26px; display: flex; flex-direction: column; gap: 36px; }
+@media (min-width: 1100px) { .ed-body { padding: 28px 32px 34px; } }
+
+.title-in { width: 100%; background: transparent; border: 0; border-bottom: 1px solid transparent; font: clamp(30px, 4.4vw, 54px)/1 var(--pixel); text-transform: uppercase; padding: 4px 0 8px; outline: none; }
+.title-in:hover { border-color: var(--line); }
+.title-in:focus { border-color: var(--paper); }
+.title-in::placeholder { color: #3d3d3d; }
+.ready { display: flex; align-items: center; gap: 8px; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--stone); margin-top: 10px; flex-wrap: wrap; }
+.ready.ok { color: var(--paper); }
+.ready button { text-decoration: underline; text-underline-offset: 3px; text-transform: uppercase; letter-spacing: .1em; font-size: 11px; color: var(--paper); }
+
+section.blk { display: flex; flex-direction: column; gap: 16px; }
+.blk-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; border-bottom: 1px solid var(--line); padding-bottom: 8px; }
+.blk-head h2 { margin: 0; font: 20px var(--pixel); text-transform: uppercase; font-weight: 400; }
+.field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.field input, .field textarea { width: 100%; background: transparent; border: 0; border-bottom: 1px solid var(--line); padding: 8px 0; font-size: 14px; outline: none; border-radius: 0; }
+.field textarea { resize: vertical; min-height: 130px; line-height: 1.6; }
+.field input:focus, .field textarea:focus { border-color: var(--paper); }
+input::placeholder, textarea::placeholder { color: #4a4a4a; }
+.field.invalid input { border-color: var(--danger); }
+.hint { font-size: 11px; color: var(--stone); margin: 0; }
+.hint.warn { color: var(--danger); }
+.req { color: var(--paper); }
+
+/* Category chips */
+.chips { display: flex; flex-wrap: wrap; gap: 6px; padding-top: 4px; }
+.chip { border: 1px solid var(--line-2); padding: 6px 10px; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; transition: background .12s steps(2), color .12s steps(2), border-color .12s; }
+.chip:hover:not(:disabled) { border-color: var(--paper); }
+.chip[aria-pressed="true"] { background: var(--paper); color: var(--ink); border-color: var(--paper); }
+.chip.add { border-style: dashed; color: var(--stone); }
+.chip-in { border: 1px solid var(--paper); background: transparent; padding: 6px 10px; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; width: 170px; outline: none; }
+
+/* Extra info rows */
+.infos { border-top: 1px solid var(--line); }
+#infoRows { border-top: 0; }
+.info-row { display: grid; grid-template-columns: 150px minmax(0, 1fr) 28px; gap: 12px; align-items: center; border-bottom: 1px solid var(--line); min-height: 44px; }
+@media (max-width: 520px) { .info-row { grid-template-columns: 100px minmax(0, 1fr) 28px; } }
+.info-row label { font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--stone); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.info-row input { background: transparent; border: 0; padding: 12px 0; font-size: 14px; outline: none; width: 100%; }
+.info-row:focus-within { border-bottom-color: var(--paper); }
+.info-row.invalid { border-bottom-color: var(--danger); }
+.info-row .x { width: 26px; height: 26px; border: 1px solid transparent; color: var(--stone); font-size: 14px; opacity: 0; }
+.info-row:hover .x, .info-row .x:focus-visible { opacity: 1; }
+@media (hover: none) { .info-row .x { opacity: 1; } }
+.info-row .x:hover { border-color: var(--danger); color: var(--danger); }
+.info-confirm { grid-column: 1 / -1; display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; padding: 10px 0; }
+.add-info { display: flex; flex-direction: column; gap: 10px; padding-top: 4px; }
+.add-form { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; border: 1px dashed var(--line-2); padding: 12px; }
+.add-form input { background: transparent; border: 0; border-bottom: 1px solid var(--paper); padding: 6px 0; font-size: 13px; outline: none; flex: 1 1 200px; min-width: 0; max-width: 320px; }
+
+/* Images */
+.drop { border: 1px dashed var(--line-2); padding: 26px 18px; text-align: center; color: var(--stone); display: flex; flex-direction: column; align-items: center; gap: 10px; transition: border-color .15s, background .15s; }
+.drop.over { border-color: var(--paper); background: var(--panel); color: var(--paper); }
+.drop strong { color: var(--paper); font-weight: 400; }
+.cover { display: grid; grid-template-columns: minmax(0, 280px) minmax(0, 1fr); gap: 20px; align-items: start; }
+@media (max-width: 620px) { .cover { grid-template-columns: minmax(0, 1fr); } }
+.frame { position: relative; background: var(--line); aspect-ratio: 4 / 5; overflow: hidden; max-width: 100%; }
+.frame img, .frame video { width: 100%; height: 100%; object-fit: cover; display: block; filter: grayscale(1); transition: filter .4s; }
+.frame:hover img, .frame:hover video { filter: none; }
+.embed-tile { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 12px; text-align: center; background: var(--panel); }
+.embed-tile b { font: 30px/1 var(--pixel); font-weight: 400; }
+.embed-tile span { font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--stone); overflow-wrap: anywhere; }
+.badge.right { left: auto; right: 8px; }
+.link-form { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; border: 1px dashed var(--line-2); padding: 12px; }
+.link-form input { flex: 1 1 260px; background: transparent; border: 0; border-bottom: 1px solid var(--paper); padding: 6px 0; font-size: 13px; outline: none; min-width: 0; }
+.badge { position: absolute; left: 8px; top: 8px; background: var(--ink); font-size: 9px; letter-spacing: .18em; text-transform: uppercase; padding: 3px 6px; }
+.gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 14px; }
+.gitem { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.gitem .frame { aspect-ratio: 1 / 1; }
+.gtools { position: absolute; inset: auto 6px 6px 6px; display: flex; gap: 4px; justify-content: space-between; opacity: 0; transition: opacity .15s; }
+.gitem:hover .gtools, .gitem:focus-within .gtools { opacity: 1; }
+@media (hover: none) { .gtools { opacity: 1; } }
+.gtools span { display: flex; gap: 4px; }
+.gtools button { background: var(--ink); border: 1px solid var(--paper); min-width: 26px; height: 24px; padding: 0 6px; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; }
+.gtools button:hover:not(:disabled) { background: var(--paper); color: var(--ink); }
+.gtools button:disabled { opacity: .3; }
+.gtools button.warn { border-color: var(--danger); color: var(--danger); }
+.gitem input { background: transparent; border: 0; border-bottom: 1px solid var(--line); padding: 4px 0; font-size: 11px; width: 100%; outline: none; }
+.gitem input:focus { border-color: var(--paper); }
+.uploading { display: grid; place-items: center; aspect-ratio: 1 / 1; border: 1px dashed var(--line-2); font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: var(--stone); }
+
+/* Visibility switch */
+.switch { display: inline-flex; align-items: center; gap: 10px; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; }
+.switch .track { width: 34px; height: 18px; border: 1px solid var(--paper); position: relative; flex: none; }
+.switch .track::after { content: ""; position: absolute; top: 3px; left: 3px; width: 10px; height: 10px; background: var(--paper); transition: transform .15s steps(3); }
+.switch[aria-checked="false"] .track::after { transform: translateX(16px); background: var(--stone); }
+.switch[aria-checked="false"] { color: var(--stone); }
+
+.danger-zone { border-top: 1px solid var(--line); padding-top: 18px; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.confirm { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+
+.foot { margin-top: 24px; border-top: 1px solid var(--line); padding-top: 14px; display: flex; gap: 10px; align-items: flex-start; color: var(--stone); font-size: 11px; }
+/* History & trash */
+.hist { margin-top: 20px; display: flex; flex-direction: column; gap: 36px; max-width: 980px; }
+.hist-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.hist-head h2 { margin: 0; font: clamp(26px, 3.4vw, 40px)/1 var(--pixel); text-transform: uppercase; font-weight: 400; }
+.hlist { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+.hrow { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px 16px; align-items: center; padding: 12px 6px; border-bottom: 1px solid var(--line); }
+.hrow b { font: 15px/1.2 var(--pixel); text-transform: uppercase; font-weight: 400; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.hrow .meta { margin-top: 4px; white-space: normal; }
+.hrow .confirm { justify-content: flex-end; }
+.hrow .hint { grid-column: 1 / -1; }
+.hrow.trash { grid-template-columns: 40px minmax(0, 1fr) auto; }
+.hrow.now { background: var(--panel); }
+#historyBtn[aria-pressed="true"] { background: var(--paper); color: var(--ink); border-color: var(--paper); }
+.toast { position: fixed; left: 50%; bottom: calc(env(safe-area-inset-bottom, 0px) + 20px); transform: translateX(-50%); background: var(--paper); color: var(--ink); padding: 10px 14px; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; z-index: 10; max-width: calc(100% - 32px); }
+</style>
+
+<header class="top">
+	<div class="brand">
+		<svg class="logo" id="logo" viewBox="0 0 8 8" shape-rendering="crispEdges" aria-hidden="true"><rect x="3" y="0" width="5" height="5" fill="#7B61FF"/><rect x="0" y="5" width="3" height="3" fill="#f2f2f2"/></svg>
+		<b id="siteName">Portfolio</b><small>/ Projets</small>
+	</div>
+	<div class="publish">
+		<button class="btn small ghost" id="historyBtn" aria-pressed="false" disabled>Historique</button>
+		<div class="status" id="status" aria-live="polite"><span class="sq o"></span><span>Connexion…</span></div>
+		<button class="btn primary" id="publishBtn" disabled>Publier</button>
+	</div>
+</header>
+
+<div id="notice"></div>
+
+<main class="work">
+	<aside class="side" id="side">
+		<div class="side-head">
+			<span class="label" id="count">Projets</span>
+			<button class="btn small" id="addBtn" disabled>+ Nouveau projet</button>
+		</div>
+		<ul class="list" id="list"><li class="empty">Chargement des projets…</li></ul>
+	</aside>
+
+	<section class="editor" id="editor" aria-label="Édition du projet">
+		<div class="empty" style="border:0">Choisissez un projet dans la liste, ou créez-en un nouveau.</div>
+	</section>
+</main>
+
+<section class="hist" id="history" hidden aria-label="Historique"></section>
+
+<p class="foot" id="foot"><span class="sq o" style="margin-top:4px"></span><span>Vos modifications sont enregistrées automatiquement dans cette page. Pour les mettre en ligne, cliquez sur « Publier sur le site », en haut à droite.</span></p>
+
+<input type="file" id="fileInput" accept="image/jpeg,image/png,image/webp,image/*" multiple hidden>
+
+<script>
+(() => {
+	'use strict';
+
+	const $ = (s, el = document) => el.querySelector(s);
+	const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+	const blob = (id) => '/_blob/' + id;
+	const nowIso = () => new Date().toISOString();
+	const pad = (n) => String(n).padStart(2, '0');
+	const VIDEO_TYPES = ['video/mp4', 'video/webm'];
+	const MAX_VIDEO = 20 * 1024 * 1024;
+	const isVideoFile = (f) => f.type.startsWith('video/') || /\.(mp4|webm|mov|m4v)$/i.test(f.name);
+	const isImageFile = (f) => f.type.startsWith('image/') || /\.(jpe?g|png|webp|heic)$/i.test(f.name);
+	// Video link → provider name, or null when not supported
+	// (same list as scripts/apply-projects.mjs)
+	function videoProvider(url) {
+		try {
+			const u = new URL(url.trim());
+			if (!/^https?:$/.test(u.protocol)) return null;
+			const h = u.hostname.replace(/^www\.|^m\./, '');
+			if (/\.(mp4|webm)$/i.test(u.pathname)) return 'Fichier vidéo';
+			if (h === 'youtu.be' || h.endsWith('youtube.com')) return 'YouTube';
+			if (h.endsWith('vimeo.com')) return 'Vimeo';
+			if (h.endsWith('dailymotion.com') || h === 'dai.ly') return 'Dailymotion';
+			if (h.endsWith('loom.com')) return 'Loom';
+			if (h.endsWith('streamable.com')) return 'Streamable';
+			if (h === 'drive.google.com') return 'Google Drive';
+		} catch (_) { /* not a URL */ }
+		return null;
+	}
+	// YouTube video id of a link (watch, youtu.be, shorts, embed, live), or null
+	function youtubeId(url) {
+		try {
+			const u = new URL(url.trim());
+			const h = u.hostname.replace(/^www\.|^m\./, '');
+			const id = h === 'youtu.be' ? u.pathname.slice(1).split('/')[0]
+				: h.endsWith('youtube.com') || h.endsWith('youtube-nocookie.com') ? (u.searchParams.get('v') || u.pathname.match(/\/(?:shorts|embed|live)\/([^/?]+)/)?.[1])
+				: null;
+			return id && /^[\w-]{6,}$/.test(id) ? id : null;
+		} catch (_) { return null; }
+	}
+
+
+	let db = null, assets = null, uid = null, canWrite = false;
+	const state = {
+		projects: [],      // [{id, data}] sorted by order
+		selected: null,
+		draft: null,
+		deploy: null,      // site/deploy
+		edits: null,       // site/edits
+		config: { fields: [] }, // site/config
+		uploads: 0,
+		history: [],       // [{id, data}] newest first — snapshots taken at each publish
+		trash: [],         // [{id, data}] newest first — deleted projects
+		view: 'projects',
+		ui: { restoring: null, purging: null,  otherCategory: false, addingInfo: false, removingField: null, deleting: false, confirmImg: -1, addingLink: false },
+	};
+
+	// ---------- Helpers ----------
+	function timeAgo(iso) {
+		if (!iso) return '';
+		const s = Math.max(0, (Date.now() - new Date(iso).getTime()) / 1000);
+		if (s < 60) return 'à l’instant';
+		if (s < 3600) return `il y a ${Math.round(s / 60)} min`;
+		if (s < 86400) return `il y a ${Math.round(s / 3600)} h`;
+		return new Date(iso).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' });
+	}
+	function toast(msg) {
+		document.querySelectorAll('.toast').forEach((t) => t.remove());
+		const t = document.createElement('div');
+		t.className = 'toast';
+		t.setAttribute('role', 'status');
+		t.textContent = msg;
+		document.body.appendChild(t);
+		setTimeout(() => t.remove(), 2600);
+	}
+	const validYear = (y) => Number.isInteger(y) && y >= 1900 && y <= 2100;
+	function missing(p) {
+		const m = [];
+		if (!p.title?.trim()) m.push('titre');
+		if (!p.cover?.asset) m.push('image mise en avant');
+		if (!p.category?.trim()) m.push('catégorie');
+		return m;
+	}
+	const fieldKey = (label) => label.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'info';
+	const isModified = (d) => !state.deploy?.lastPublishedAt || (d.updatedAt || '') > state.deploy.lastPublishedAt;
+	function blankProject(order) {
+		return { title: '', category: '', year: null, info: {}, summary: '', description: [], cover: null, gallery: [], visible: true, order, createdAt: nowIso(), updatedAt: nowIso() };
+	}
+
+	// Shrink photos before upload: max 2400 px, JPEG
+	async function prepareImage(file) {
+		try {
+			const bmp = await createImageBitmap(file);
+			const scale = Math.min(1, 2400 / Math.max(bmp.width, bmp.height));
+			const c = document.createElement('canvas');
+			c.width = Math.round(bmp.width * scale);
+			c.height = Math.round(bmp.height * scale);
+			c.getContext('2d').drawImage(bmp, 0, 0, c.width, c.height);
+			const out = await new Promise((r) => c.toBlob(r, 'image/jpeg', 0.86));
+			if (out) return out;
+		} catch (_) { /* fall through */ }
+		if (['image/jpeg', 'image/png', 'image/webp'].includes(file.type)) return file;
+		throw new Error('format');
+	}
+
+	// ---------- Publish bar ----------
+	function pendingCount() {
+		const n = state.projects.filter((p) => isModified(cur(p))).length;
+		const editedAfter = state.edits?.lastEditAt && (!state.deploy?.lastPublishedAt || state.edits.lastEditAt > state.deploy.lastPublishedAt);
+		return { n, any: n > 0 || !!editedAfter };
+	}
+	const cur = (p) => (p.id === state.selected && state.draft ? state.draft : p.data);
+	function targetLabel() {
+		const url = state.deploy?.siteUrl;
+		if (!url) return 'le site';
+		try { return new URL(url).host; } catch (_) { return url; }
+	}
+	function renderStatus() {
+		const el = $('#status');
+		const btn = $('#publishBtn');
+		const d = state.deploy || {};
+		const { n, any } = pendingCount();
+		const age = (iso) => (iso ? (Date.now() - new Date(iso).getTime()) / 60000 : 0);
+		// Edits made after the publish request (the task reads the latest data anyway,
+		// but a new click refreshes the request and the history copy)
+		const since = d.requestedAt || '';
+		const newer = state.projects.some((p) => (cur(p).updatedAt || '') > since) || (state.edits?.lastEditAt || '') > since;
+		const pending = d.status === 'pending';
+		const running = d.status === 'running' && age(d.startedAt || d.requestedAt) < 30;
+		let cls = '', sq = 'sq o', text, tip = d.message || '';
+
+		if (!db) text = 'Hors ligne';
+		else if (pending) {
+			sq = 'sq blink'; text = `Demandée ${timeAgo(d.requestedAt)}`;
+			const m = d.checkEveryMinutes || 720;
+			tip = `Claude publiera au prochain passage de la tâche (toutes les ${m < 60 ? m + ' min' : Math.round(m / 60) + ' h'}). Pour publier tout de suite : Tâches planifiées → « Exécuter maintenant ».`;
+		}
+		else if (running) { sq = 'sq blink'; text = 'Claude publie…'; }
+		else if (d.status === 'error') { cls = 'err'; sq = 'sq'; text = 'Échec de publication'; }
+		else if (any) { text = n ? `${n} à publier` : 'Modifications à publier'; }
+		else if (d.lastPublishedAt) { sq = 'sq'; text = `À jour · ${timeAgo(d.lastPublishedAt)}`; tip = `Publié sur ${targetLabel()}`; }
+		else text = 'Pas encore publié';
+
+		el.className = 'status ' + cls;
+		el.innerHTML = `<span class="${sq}"></span><span>${esc(text)}</span>`;
+		el.title = tip;
+
+		// What the button offers: publish, publish again (new edits since the request),
+		// cancel a waiting request, or nothing to do
+		let mode = 'publish';
+		if (running) mode = 'busy';
+		else if (pending) mode = newer ? 'publish' : 'cancel';
+		else if (!any && d.status !== 'error') mode = 'uptodate';
+		btn.dataset.mode = mode;
+		btn.disabled = !canWrite || mode === 'busy' || mode === 'uptodate';
+		btn.classList.toggle('state', mode === 'busy' || mode === 'uptodate');
+		btn.classList.toggle('ghost', mode === 'cancel');
+		btn.classList.toggle('primary', mode === 'publish');
+		btn.innerHTML = mode === 'busy' ? '<span class="sq blink"></span>Publication en cours…'
+			: mode === 'uptodate' ? 'À jour ✓'
+			: mode === 'cancel' ? 'Annuler la demande'
+			: `Publier sur le site${n ? ` <span class="count">${n}</span>` : ''}`;
+		btn.title = mode === 'cancel' ? 'La publication est déjà demandée : Claude la fera au prochain passage. Cliquez pour l’annuler.' : '';
+		btn.setAttribute('aria-label', mode === 'busy' ? 'Publication en cours' : mode === 'uptodate' ? 'Le site est à jour' : mode === 'cancel' ? 'Annuler la demande de publication' : `Publier ${n || ''} modification${n > 1 ? 's' : ''} sur le site`);
+	}
+
+	async function cancelPublish() {
+		if (!canWrite) return;
+		try {
+			await db.doc('site/deploy').update({ status: 'idle', message: '' });
+			toast('Demande de publication annulée');
+		} catch (_) { toast('Échec, réessayez'); }
+	}
+
+	async function requestPublish() {
+		if (!canWrite) return;
+		const incomplete = state.projects.find((p) => cur(p).visible && missing(cur(p)).length);
+		if (incomplete) {
+			toast(`« ${cur(incomplete).title || 'Sans titre'} » est incomplet : complétez-le ou masquez-le`);
+			select(incomplete.id);
+			return;
+		}
+		$('#publishBtn').disabled = true;
+		try {
+			await flushSave();
+			await snapshot('Publication');
+			const ref = db.doc('site/deploy');
+			const body = { status: 'pending', requestedAt: nowIso(), requestedBy: uid || null, message: '' };
+			const snap = await ref.get();
+			if (snap.exists) await ref.update(body); else await ref.set({ ...body, checkEveryMinutes: 720 });
+			toast('Publication demandée');
+		} catch (_) {
+			toast('La demande n’a pas pu être envoyée, réessayez');
+			renderStatus();
+		}
+	}
+
+	// ---------- List ----------
+	function renderList() {
+		const list = $('#list');
+		const visible = state.projects.filter((p) => cur(p).visible).length;
+		$('#count').textContent = `${pad(state.projects.length)} projets · ${pad(visible)} en ligne`;
+		if (!state.projects.length) {
+			list.innerHTML = `<li class="empty">Aucun projet pour l’instant.<br>Créez le premier avec « + Nouveau projet ».</li>`;
+			return;
+		}
+		list.innerHTML = state.projects.map((p, i) => {
+			const d = cur(p);
+			const m = missing(d);
+			const thumb = d.cover?.asset ? `<img class="thumb" src="${blob(d.cover.asset)}" alt="" loading="lazy">` : `<span class="thumb" aria-hidden="true"></span>`;
+			let tag = '';
+			if (!d.visible) tag = '<span class="pill">Masqué</span>';
+			else if (m.length) tag = '<span class="pill">À compléter</span>';
+			else if (isModified(d)) tag = '<span class="pill">À publier</span>';
+			return `<li class="row ${p.id === state.selected ? 'sel' : ''} ${d.visible ? '' : 'off'}" data-id="${esc(p.id)}" tabindex="0" role="button" aria-pressed="${p.id === state.selected}">
+				${thumb}
+				<span class="rt"><b>${esc(d.title || 'Sans titre')}</b>
+					<span class="meta">${esc([d.category, d.year].filter(Boolean).join(' · ') || '—')} ${tag}</span></span>
+				<span class="move">
+					<button data-move="-1" aria-label="Monter" ${i === 0 || !canWrite ? 'disabled' : ''}>↑</button>
+					<button data-move="1" aria-label="Descendre" ${i === state.projects.length - 1 || !canWrite ? 'disabled' : ''}>↓</button>
+				</span>
+			</li>`;
+		}).join('');
+	}
+
+	$('#list').addEventListener('click', (e) => {
+		const row = e.target.closest('.row');
+		if (!row) return;
+		const mv = e.target.closest('[data-move]');
+		if (mv) { e.stopPropagation(); move(row.dataset.id, Number(mv.dataset.move)); return; }
+		select(row.dataset.id);
+	});
+	$('#list').addEventListener('keydown', (e) => {
+		const row = e.target.closest('.row');
+		if (row && e.target === row && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); select(row.dataset.id); }
+	});
+
+	async function move(id, dir) {
+		await flushSave();
+		const i = state.projects.findIndex((p) => p.id === id);
+		const j = i + dir;
+		if (i < 0 || j < 0 || j >= state.projects.length) return;
+		// Renumber everything so orders are always distinct
+		const ordered = state.projects.map((p) => p.id);
+		[ordered[i], ordered[j]] = [ordered[j], ordered[i]];
+		const t = nowIso();
+		try {
+			for (const [k, pid] of ordered.entries()) {
+				const p = state.projects.find((x) => x.id === pid);
+				if (p.data.order !== k) {
+					await db.doc('projects/' + pid).update({ order: k, updatedAt: t });
+					if (state.draft && state.selected === pid) { state.draft.order = k; state.draft.updatedAt = t; }
+				}
+			}
+			touchEdits();
+		} catch (_) { toast('Le déplacement a échoué'); }
+	}
+
+	async function addProject() {
+		if (!canWrite) return;
+		await flushSave();
+		const min = state.projects.reduce((m, p) => Math.min(m, p.data.order ?? 0), 0);
+		const id = 'p-' + Math.random().toString(36).slice(2, 8);
+		const data = blankProject(min - 1);
+		try {
+			await db.doc('projects/' + id).set(data);
+			touchEdits();
+			await select(id, data);
+			setTimeout(() => $('#f-title')?.focus(), 60);
+		} catch (_) { toast('Impossible de créer le projet'); }
+	}
+
+	// ---------- Saving ----------
+	let saveTimer = null, saveChain = Promise.resolve(), saveState = 'saved';
+	function setSaved(s) {
+		saveState = s;
+		const el = $('#savedState');
+		if (!el) return;
+		el.innerHTML = s === 'saving' ? '<span class="sq blink"></span>Enregistrement…'
+			: s === 'error' ? '<span class="sq bad"></span>Non enregistré · nouvel essai'
+			: s === 'dirty' ? '<span class="sq o"></span>Modification…'
+			: '<span class="sq"></span>Enregistré';
+	}
+	function scheduleSave(delay = 700) {
+		if (!state.draft || !canWrite) return;
+		setSaved('dirty');
+		clearTimeout(saveTimer);
+		saveTimer = setTimeout(save, delay);
+	}
+	function save() {
+		clearTimeout(saveTimer);
+		saveTimer = null;
+		if (!state.draft || !state.selected) return saveChain;
+		const id = state.selected;
+		state.draft.updatedAt = nowIso();
+		const data = JSON.parse(JSON.stringify(state.draft));
+		setSaved('saving');
+		saveChain = saveChain.then(() => db.doc('projects/' + id).set(data)).then(() => {
+			setSaved('saved');
+			touchEdits();
+			renderList();
+			renderStatus();
+		}).catch(() => { setSaved('error'); setTimeout(() => scheduleSave(0), 3000); });
+		return saveChain;
+	}
+	function flushSave() { return saveTimer ? save() : saveChain; }
+
+	let editsTimer = null;
+	function touchEdits() {
+		clearTimeout(editsTimer);
+		editsTimer = setTimeout(() => db.doc('site/edits').set({ lastEditAt: nowIso() }).catch(() => {}), 400);
+	}
+
+	let configChain = Promise.resolve();
+	function saveConfig(next) {
+		state.config = next;
+		configChain = configChain.then(() => db.doc('site/config').set(next)).catch(() => toast('Le réglage n’a pas pu être enregistré'));
+		touchEdits();
+		return configChain;
+	}
+
+	// ---------- Editor ----------
+	async function select(id, freshData) {
+		if (state.selected && state.selected !== id) await flushSave();
+		const p = state.projects.find((x) => x.id === id);
+		const data = freshData || p?.data;
+		if (!data) return;
+		state.selected = id;
+		state.draft = JSON.parse(JSON.stringify(data));
+		state.draft.description = Array.isArray(state.draft.description) ? state.draft.description : [];
+		state.draft.gallery = Array.isArray(state.draft.gallery) ? state.draft.gallery : [];
+		state.draft.info = state.draft.info && typeof state.draft.info === 'object' ? state.draft.info : {};
+		state.ui = { otherCategory: false, addingInfo: false, removingField: null, deleting: false, confirmImg: -1, addingLink: false };
+		renderList();
+		renderEditor();
+		if (window.matchMedia('(max-width: 880px)').matches) $('#editor').scrollIntoView({ behavior: 'smooth', block: 'start' });
+	}
+
+	const RO = () => (canWrite ? '' : 'readonly');
+	const DIS = () => (canWrite ? '' : 'disabled');
+
+	function renderEditor() {
+		const ed = $('#editor');
+		const d = state.draft;
+		if (!d) {
+			ed.innerHTML = `<div class="empty" style="border:0">Choisissez un projet dans la liste, ou créez-en un nouveau.</div>`;
+			return;
+		}
+		ed.innerHTML = `
+			<div class="ed-bar">
+				<button class="back" id="backBtn">← Projets</button>
+				<button class="switch" id="visToggle" role="switch" aria-checked="${!!d.visible}" ${DIS()}>
+					<span class="track"></span><span id="visText">${d.visible ? 'En ligne sur le site' : 'Masqué du site'}</span>
+				</button>
+				<span class="saved" id="savedState"></span>
+			</div>
+			<div class="ed-body">
+				<div>
+					<label class="label" for="f-title">Titre du projet <span class="req">*</span></label>
+					<input class="title-in" id="f-title" data-f="title" value="${esc(d.title)}" placeholder="Titre du projet" maxlength="60" autocomplete="off" ${RO()}>
+					<div class="ready" id="readyLine"></div>
+				</div>
+
+				<section class="blk" id="blk-cover" aria-labelledby="h-cover">
+					<div class="blk-head"><h2 id="h-cover">Image mise en avant <span class="req">*</span></h2><span class="label">Grille du site</span></div>
+					<div id="coverBox"></div>
+				</section>
+
+				<section class="blk" id="blk-info" aria-labelledby="h-info">
+					<div class="blk-head"><h2 id="h-info">Infos</h2><span class="label">Fiche du projet</span></div>
+					<div class="field">
+						<span class="label" id="l-cat">Catégorie <span class="req">*</span></span>
+						<div class="chips" id="catChips" role="group" aria-labelledby="l-cat"></div>
+					</div>
+					<div>
+						<p class="label" style="margin:10px 0 8px">Infos complémentaires · <span style="text-transform:none;letter-spacing:.02em">affichées seulement si remplies</span></p>
+						<div class="infos">
+							<div class="info-row" id="yearField">
+								<label for="f-year">Année</label>
+								<input id="f-year" data-f="year" inputmode="numeric" pattern="[0-9]{4}" maxlength="4" value="${esc(d.year ?? '')}" placeholder="— AAAA" autocomplete="off" aria-describedby="yearHint" ${RO()}>
+								<span></span>
+							</div>
+							<p class="hint warn" id="yearHint" aria-live="polite"></p>
+						</div>
+						<div class="infos" id="infoRows"></div>
+						<div class="add-info" id="addInfo"></div>
+					</div>
+				</section>
+
+				<section class="blk" aria-labelledby="h-txt">
+					<div class="blk-head"><h2 id="h-txt">Texte</h2><span class="label">Optionnel</span></div>
+					<div class="field"><label class="label" for="f-summary">Accroche</label>
+						<input id="f-summary" data-f="summary" value="${esc(d.summary)}" placeholder="Une phrase qui résume le projet" maxlength="140" ${RO()}></div>
+					<div class="field"><label class="label" for="f-description">Description</label>
+						<textarea id="f-description" data-f="description" rows="6" placeholder="Racontez le projet. Une ligne vide crée un nouveau paragraphe." ${RO()}>${esc((d.description || []).join('\n\n'))}</textarea></div>
+				</section>
+
+				<section class="blk" aria-labelledby="h-gal">
+					<div class="blk-head"><h2 id="h-gal">Galerie</h2><span class="label" id="galCount"></span></div>
+					<div class="gallery" id="galleryBox"></div>
+				</section>
+
+				${canWrite ? `<div class="danger-zone" id="dangerZone"></div>` : ''}
+			</div>`;
+
+		renderReady();
+		renderCover();
+		renderCategories();
+		renderYear();
+		renderInfos();
+		renderGallery();
+		renderDanger();
+		setSaved(saveState === 'error' ? 'error' : 'saved');
+	}
+
+	function renderReady() {
+		const el = $('#readyLine');
+		if (!el) return;
+		const m = missing(state.draft);
+		if (!m.length) {
+			el.className = 'ready ok';
+			el.innerHTML = `<span class="sq ok"></span>Prêt à publier`;
+		} else {
+			el.className = 'ready';
+			const target = { 'image mise en avant': 'blk-cover', 'catégorie': 'blk-info', titre: 'f-title' };
+			el.innerHTML = `<span class="sq o"></span>Il manque : ` + m.map((x) => `<button data-goto="${target[x]}">${esc(x)}</button>`).join(', ');
+		}
+	}
+
+	function renderCategories() {
+		const box = $('#catChips');
+		if (!box) return;
+		const current = state.draft.category || '';
+		const cats = [...new Set(state.projects.map((p) => p.data.category?.trim()).filter(Boolean))].sort((a, b) => a.localeCompare(b, 'fr'));
+		if (current && !cats.includes(current)) cats.push(current);
+		const chips = cats.map((c) => `<button class="chip" data-cat="${esc(c)}" aria-pressed="${c === current}" ${DIS()}>${esc(c)}</button>`).join('');
+		const other = state.ui.otherCategory
+			? `<input class="chip-in" id="f-catnew" placeholder="Nouvelle catégorie" maxlength="30" aria-label="Nouvelle catégorie">`
+			: (canWrite ? `<button class="chip add" id="catAdd">+ Autre</button>` : '');
+		box.innerHTML = chips + other;
+		if (state.ui.otherCategory) setTimeout(() => $('#f-catnew')?.focus(), 0);
+	}
+
+	function renderYear() {
+		const y = state.draft.year;
+		const raw = $('#f-year')?.value ?? '';
+		const bad = raw !== '' && !validYear(Number(raw));
+		$('#yearField')?.classList.toggle('invalid', bad);
+		const hint = $('#yearHint');
+		if (hint) { hint.textContent = bad ? 'Année sur 4 chiffres (ex. 2025)' : ''; hint.style.margin = bad ? '6px 0' : '0'; }
+		return y;
+	}
+
+	function renderInfos() {
+		const rows = $('#infoRows');
+		if (!rows) return;
+		const fields = state.config.fields || [];
+		rows.innerHTML = fields.map((f) => {
+			if (state.ui.removingField === f.key) {
+				return `<div class="info-row"><div class="info-confirm">
+					<span class="hint">Retirer « ${esc(f.label)} » de tous les projets ?</span>
+					<span class="confirm"><button class="btn small ghost" data-cancel-field>Annuler</button><button class="btn small danger" data-confirm-field="${esc(f.key)}">Retirer</button></span>
+				</div></div>`;
+			}
+			return `<div class="info-row">
+				<label for="i-${esc(f.key)}">${esc(f.label)}</label>
+				<input id="i-${esc(f.key)}" data-info="${esc(f.key)}" value="${esc(state.draft.info?.[f.key] ?? '')}" placeholder="—" maxlength="80" ${RO()}>
+				${canWrite ? `<button class="x" data-remove-field="${esc(f.key)}" aria-label="Retirer le champ ${esc(f.label)} de tous les projets" title="Retirer ce champ">×</button>` : '<span></span>'}
+			</div>`;
+		}).join('');
+
+		const add = $('#addInfo');
+		if (!canWrite) { add.innerHTML = ''; return; }
+		if (!state.ui.addingInfo) {
+			add.innerHTML = `<div><button class="btn small ghost" id="addInfoBtn">+ Ajouter une info</button></div>`;
+			return;
+		}
+		add.innerHTML = `<div class="add-form">
+			<input id="f-newfield" placeholder="Intitulé (ex. Lieu, Client)…" maxlength="24" aria-label="Intitulé de la nouvelle info">
+			<button class="btn small" id="newFieldOk">Ajouter</button>
+			<button class="btn small ghost" id="newFieldCancel">Annuler</button>
+		</div>
+		<p class="hint">L’info est ajoutée à tous les projets. Laissée vide, elle n’apparaît pas sur le site.</p>`;
+	}
+
+	function addField(label) {
+		label = label.trim().replace(/\s+/g, ' ');
+		if (!label) return;
+		const fields = [...(state.config.fields || [])];
+		if (/^ann[ée]es?$/i.test(label) || fields.some((f) => f.label.toLowerCase() === label.toLowerCase())) { toast('Cette info existe déjà'); return; }
+		let key = fieldKey(label);
+		for (let n = 2; fields.some((f) => f.key === key); n++) key = `${fieldKey(label)}-${n}`;
+		fields.push({ key, label });
+		state.ui.addingInfo = false;
+		saveConfig({ ...state.config, fields });
+		renderInfos();
+		setTimeout(() => $(`#i-${CSS.escape(key)}`)?.focus(), 0);
+	}
+
+	function dropZone(target, title) {
+		const gallery = target === 'gallery';
+		return `<div class="drop" data-drop="${target}">
+			<strong>${title}</strong>
+			<span>${gallery ? 'Glissez vos photos ou vidéos ici, ou' : 'Glissez votre photo ici, ou'}</span>
+			<button class="btn small" data-pick="${target}" ${canWrite && assets ? '' : 'disabled'}>Choisir sur l’ordinateur</button>
+			<span class="hint">${gallery ? 'Photos JPG, PNG ou WebP · vidéos MP4 ou WebM, 20 Mo maximum' : 'JPG, PNG ou WebP · réduite automatiquement'}</span>
+		</div>`;
+	}
+
+	function renderCover() {
+		const box = $('#coverBox');
+		if (!box) return;
+		const c = state.draft.cover;
+		if (!c?.asset) { box.innerHTML = dropZone('cover', 'Ajoutez la photo principale'); return; }
+		box.innerHTML = `<div class="cover">
+			<div class="frame"><img src="${blob(c.asset)}" alt=""><span class="badge">Mise en avant</span></div>
+			<div style="display:flex;flex-direction:column;gap:14px;min-width:0">
+				<div class="field"><label class="label" for="f-coveralt">Légende</label>
+					<input id="f-coveralt" data-alt="cover" value="${esc(c.alt)}" placeholder="Décrivez la photo en quelques mots" maxlength="90" ${RO()}></div>
+				${canWrite && assets ? `<div><button class="btn small" data-pick="cover">Remplacer la photo</button></div>` : ''}
+				<p class="hint">Astuce : dans la galerie, « ★ » met une autre photo en avant.</p>
+			</div>
+		</div>`;
+	}
+
+	function galleryTile(item) {
+		if (item.kind === 'embed') {
+			const yt = youtubeId(item.embed);
+			if (yt) {
+				return `<img src="https://i.ytimg.com/vi/${esc(yt)}/hqdefault.jpg" alt="" loading="lazy"><span class="badge right">▶ YouTube</span>`;
+			}
+			return `<div class="embed-tile"><b>▶</b><span>${esc(videoProvider(item.embed) || 'Vidéo')}</span><span>${esc(item.embed.replace(/^https?:\/\/(www\.)?/, '').slice(0, 40))}</span></div>`;
+		}
+		if (item.kind === 'video') {
+			return `<video src="${blob(item.asset)}" muted loop playsinline preload="metadata" data-hover-play></video><span class="badge right">Vidéo</span>`;
+		}
+		return `<img src="${blob(item.asset)}" alt="" loading="lazy">`;
+	}
+
+	function renderGallery() {
+		const box = $('#galleryBox');
+		if (!box) return;
+		const g = state.draft.gallery;
+		const videos = g.filter((x) => x.kind === 'video' || x.kind === 'embed').length;
+		const photos = g.length - videos;
+		$('#galCount').textContent = `${pad(photos)} photo${photos > 1 ? 's' : ''} · ${pad(videos)} vidéo${videos > 1 ? 's' : ''}`;
+		const items = g.map((item, i) => `
+			<div class="gitem" data-i="${i}">
+				<div class="frame">
+					${galleryTile(item)}
+					${canWrite ? `<div class="gtools">
+						<span>
+							<button data-g="left" aria-label="Déplacer vers la gauche" ${i === 0 ? 'disabled' : ''}>←</button>
+							<button data-g="right" aria-label="Déplacer vers la droite" ${i === g.length - 1 ? 'disabled' : ''}>→</button>
+						</span>
+						<span>
+							${item.kind ? '' : '<button data-g="star" aria-label="Mettre en avant" title="Mettre en avant">★</button>'}
+							<button data-g="del" class="${state.ui.confirmImg === i ? 'warn' : ''}" aria-label="Retirer" title="Retirer">${state.ui.confirmImg === i ? 'Retirer ?' : '×'}</button>
+						</span>
+					</div>` : ''}
+				</div>
+				<input data-alt="${i}" value="${esc(item.alt)}" placeholder="Légende" maxlength="90" aria-label="Légende ${i + 1}" ${RO()}>
+			</div>`).join('');
+		const pending = Array.from({ length: state.uploads }, () => `<div class="uploading"><span class="blink">Envoi…</span></div>`).join('');
+		const linkUi = !canWrite ? '' : state.ui.addingLink
+			? `<div class="link-form">
+				<input id="f-videolink" type="url" placeholder="Lien YouTube, Vimeo, Dailymotion, Loom, Streamable, Google Drive ou .mp4" aria-label="Lien de la vidéo">
+				<button class="btn small" id="linkOk">Ajouter</button>
+				<button class="btn small ghost" id="linkCancel">Annuler</button>
+			</div>`
+			: `<div><button class="btn small ghost" id="addLinkBtn">+ Lien vidéo</button> <span class="hint" style="display:inline">YouTube, Vimeo, Dailymotion, Loom, Streamable, Google Drive ou fichier .mp4 · pour les vidéos de plus de 20 Mo</span></div>`;
+		box.innerHTML = items + pending + (canWrite && assets ? `<div style="grid-column:1/-1;display:flex;flex-direction:column;gap:12px">${dropZone('gallery', g.length ? 'Ajoutez d’autres photos ou vidéos' : 'Ajoutez les photos et vidéos du projet')}${linkUi}</div>` : '');
+	}
+
+	function addVideoLink(url) {
+		const provider = videoProvider(url || '');
+		if (!provider) { toast('Lien non reconnu : YouTube, Vimeo, Dailymotion, Loom, Streamable, Google Drive ou fichier .mp4'); return; }
+		state.draft.gallery.push({ kind: 'embed', embed: url.trim(), alt: '' });
+		state.ui.addingLink = false;
+		renderGallery();
+		scheduleSave(0);
+		toast(`Vidéo ${provider} ajoutée`);
+	}
+
+	function renderDanger() {
+		const z = $('#dangerZone');
+		if (!z) return;
+		z.innerHTML = state.ui.deleting
+			? `<span class="hint">Supprimer « ${esc(state.draft.title || 'Sans titre')} » ? Il disparaîtra du site à la prochaine publication (récupérable dans Historique).</span>
+				<span class="confirm"><button class="btn small ghost" id="delCancel">Annuler</button><button class="btn small danger" id="delYes">Supprimer</button></span>`
+			: `<span class="hint">Pour retirer temporairement un projet, masquez-le plutôt que de le supprimer.</span>
+				<button class="btn small danger" id="delBtn">Supprimer le projet</button>`;
+	}
+
+	// ---------- Editor events ----------
+	$('#editor').addEventListener('input', (e) => {
+		if (!state.draft || !canWrite) return;
+		const t = e.target;
+		if (t.dataset.f) {
+			const f = t.dataset.f;
+			let v = t.value;
+			if (f === 'year') {
+				v = v.replace(/\D/g, '').slice(0, 4);
+				if (t.value !== v) t.value = v;
+				const n = Number(v);
+				state.draft.year = validYear(n) ? n : null;
+				renderYear();
+			} else if (f === 'description') {
+				state.draft.description = v.split(/\n\s*\n/).map((s) => s.trim()).filter(Boolean);
+			} else {
+				state.draft[f] = v;
+			}
+			renderReady();
+			scheduleSave();
+		} else if (t.dataset.info) {
+			state.draft.info = { ...state.draft.info, [t.dataset.info]: t.value };
+			scheduleSave();
+		} else if (t.dataset.alt !== undefined) {
+			if (t.dataset.alt === 'cover' && state.draft.cover) state.draft.cover.alt = t.value;
+			else if (state.draft.gallery[Number(t.dataset.alt)]) state.draft.gallery[Number(t.dataset.alt)].alt = t.value;
+			scheduleSave();
+		} else if (t.id === 'f-catnew') {
+			state.draft.category = t.value.trim();
+			renderReady();
+			scheduleSave();
+		}
+	});
+
+	$('#editor').addEventListener('keydown', (e) => {
+		if (e.key !== 'Enter') return;
+		if (e.target.id === 'f-newfield') { e.preventDefault(); addField(e.target.value); }
+		if (e.target.id === 'f-videolink') { e.preventDefault(); addVideoLink(e.target.value); }
+		if (e.target.id === 'f-catnew') { e.preventDefault(); state.ui.otherCategory = false; renderCategories(); }
+	});
+	$('#editor').addEventListener('focusout', (e) => {
+		if (e.target.id === 'f-catnew') setTimeout(() => { if (state.ui.otherCategory && document.activeElement?.id !== 'f-catnew') { state.ui.otherCategory = false; renderCategories(); } }, 120);
+	});
+
+	let pickTarget = 'gallery';
+	$('#editor').addEventListener('click', async (e) => {
+		const t = e.target.closest('button');
+		if (!t || !state.draft) return;
+		const d = state.draft;
+
+		if (t.id === 'backBtn') { $('#side').scrollIntoView({ behavior: 'smooth' }); return; }
+		if (t.dataset.goto) { const el = document.getElementById(t.dataset.goto); el?.scrollIntoView({ behavior: 'smooth', block: 'center' }); if (el?.tagName === 'INPUT') el.focus(); return; }
+		if (!canWrite) return;
+
+		if (t.id === 'visToggle') {
+			d.visible = !d.visible;
+			t.setAttribute('aria-checked', String(d.visible));
+			$('#visText').textContent = d.visible ? 'En ligne sur le site' : 'Masqué du site';
+			scheduleSave(0);
+			renderList();
+			return;
+		}
+		if (t.dataset.cat !== undefined) {
+			d.category = d.category === t.dataset.cat ? '' : t.dataset.cat;
+			renderCategories(); renderReady(); scheduleSave(0);
+			return;
+		}
+		if (t.id === 'catAdd') { state.ui.otherCategory = true; renderCategories(); return; }
+		if (t.id === 'addInfoBtn') { state.ui.addingInfo = true; renderInfos(); setTimeout(() => $('#f-newfield')?.focus(), 0); return; }
+		if (t.id === 'newFieldCancel') { state.ui.addingInfo = false; renderInfos(); return; }
+		if (t.id === 'newFieldOk') { addField($('#f-newfield').value); return; }
+		if (t.dataset.removeField) { state.ui.removingField = t.dataset.removeField; renderInfos(); return; }
+		if (t.dataset.cancelField !== undefined) { state.ui.removingField = null; renderInfos(); return; }
+		if (t.dataset.confirmField) {
+			const key = t.dataset.confirmField;
+			state.ui.removingField = null;
+			saveConfig({ ...state.config, fields: (state.config.fields || []).filter((f) => f.key !== key) });
+			renderInfos();
+			toast('Info retirée de tous les projets');
+			return;
+		}
+		if (t.dataset.pick) {
+			pickTarget = t.dataset.pick;
+			const input = $('#fileInput');
+			input.multiple = pickTarget === 'gallery';
+			input.accept = pickTarget === 'gallery' ? 'image/jpeg,image/png,image/webp,image/*,video/mp4,video/webm' : 'image/jpeg,image/png,image/webp,image/*';
+			input.click();
+			return;
+		}
+		if (t.id === 'addLinkBtn') { state.ui.addingLink = true; renderGallery(); setTimeout(() => $('#f-videolink')?.focus(), 0); return; }
+		if (t.id === 'linkCancel') { state.ui.addingLink = false; renderGallery(); return; }
+		if (t.id === 'linkOk') { addVideoLink($('#f-videolink').value); return; }
+		if (t.id === 'delBtn') { state.ui.deleting = true; renderDanger(); return; }
+		if (t.id === 'delCancel') { state.ui.deleting = false; renderDanger(); return; }
+		if (t.id === 'delYes') {
+			const id = state.selected;
+			clearTimeout(saveTimer); saveTimer = null;
+			try {
+				await saveChain;
+				const data = state.projects.find((p) => p.id === id)?.data || state.draft;
+				await db.doc('trash/' + id).set({ project: data, deletedAt: nowIso() });
+				await db.doc('projects/' + id).delete();
+				touchEdits();
+				state.selected = null; state.draft = null;
+				state.ui.deleting = false;
+				renderEditor();
+				toast('Projet mis à la corbeille · récupérable dans Historique');
+			} catch (_) { toast('La suppression a échoué'); }
+			return;
+		}
+
+		const g = t.dataset.g;
+		if (g) {
+			const i = Number(t.closest('.gitem').dataset.i);
+			const arr = d.gallery;
+			if (g === 'left' && i > 0) [arr[i - 1], arr[i]] = [arr[i], arr[i - 1]];
+			if (g === 'right' && i < arr.length - 1) [arr[i + 1], arr[i]] = [arr[i], arr[i + 1]];
+			if (g === 'star' && !arr[i].kind) {
+				const prev = d.cover;
+				d.cover = arr[i];
+				if (prev?.asset) arr[i] = prev; else arr.splice(i, 1);
+				renderCover(); renderList();
+			}
+			if (g === 'del') {
+				if (state.ui.confirmImg !== i) {
+					state.ui.confirmImg = i;
+					renderGallery();
+					setTimeout(() => { if (state.ui.confirmImg === i) { state.ui.confirmImg = -1; renderGallery(); } }, 2500);
+					return;
+				}
+				arr.splice(i, 1);
+			}
+			state.ui.confirmImg = -1;
+			renderGallery(); renderReady(); scheduleSave(0);
+		}
+	});
+
+	// ---------- Uploads ----------
+	async function uploadFiles(files, target) {
+		if (!assets || !canWrite || !state.draft) return;
+		const all = [...files];
+		let list = all.filter((f) => isImageFile(f) || (target === 'gallery' && isVideoFile(f)));
+		if (!list.length) {
+			toast(target === 'cover' ? 'La photo mise en avant doit être une image (JPG, PNG ou WebP)' : 'Choisissez des photos ou des vidéos MP4 / WebM');
+			return;
+		}
+		// Videos: MP4 / WebM only, 20 Mo max (the artifact's storage limit)
+		list = list.filter((f) => {
+			if (!isVideoFile(f)) return true;
+			if (!VIDEO_TYPES.includes(f.type)) { toast(`« ${f.name} » : format vidéo MP4 ou WebM uniquement`); return false; }
+			if (f.size > MAX_VIDEO) { toast(`« ${f.name} » dépasse 20 Mo : ajoutez-la plutôt par un lien vidéo (YouTube, Vimeo…)`); return false; }
+			return true;
+		});
+		if (!list.length) return;
+		const id = state.selected;
+		const batch = target === 'cover' ? list.slice(0, 1) : list;
+		state.uploads += batch.length;
+		renderGallery();
+		let ok = 0;
+		for (const file of batch) {
+			try {
+				const video = isVideoFile(file);
+				const body = video ? file : await prepareImage(file);
+				const res = await assets.upload(body, { type: video ? file.type : body.type || 'image/jpeg' });
+				if (state.selected !== id || !state.draft) continue;
+				const entry = video ? { kind: 'video', asset: res.id, alt: '' } : { asset: res.id, alt: '' };
+				if (target === 'cover') {
+					if (state.draft.cover?.asset) state.draft.gallery.unshift(state.draft.cover);
+					state.draft.cover = entry;
+				} else state.draft.gallery.push(entry);
+				ok++;
+			} catch (e) {
+				const code = e?.code;
+				toast(code === 'too_large' ? 'Fichier trop lourd (20 Mo maximum)'
+					: code === 'quota_or_state' ? 'Espace de stockage plein'
+					: code === 'unsupported_type' ? 'Format non pris en charge'
+					: e?.message === 'format' ? 'Format non pris en charge (JPG, PNG ou WebP)'
+					: 'Un fichier n’a pas pu être envoyé');
+			} finally {
+				state.uploads--;
+				if (state.selected === id) { renderCover(); renderGallery(); renderReady(); }
+			}
+		}
+		if (state.selected === id && ok) { scheduleSave(0); renderList(); }
+		if (ok > 1) toast(`${ok} fichiers ajoutés`);
+	}
+
+	$('#fileInput').addEventListener('change', (e) => { uploadFiles(e.target.files, pickTarget); e.target.value = ''; });
+	$('#editor').addEventListener('dragover', (e) => { const z = e.target.closest('[data-drop]'); if (!z) return; e.preventDefault(); z.classList.add('over'); });
+	$('#editor').addEventListener('dragleave', (e) => e.target.closest('[data-drop]')?.classList.remove('over'));
+	$('#editor').addEventListener('drop', (e) => {
+		const z = e.target.closest('[data-drop]');
+		if (!z) return;
+		e.preventDefault();
+		z.classList.remove('over');
+		uploadFiles(e.dataTransfer.files, z.dataset.drop);
+	});
+
+	// Gallery videos play while hovered
+	$('#editor').addEventListener('mouseover', (e) => { const v = e.target.closest?.('video[data-hover-play]'); if (v) v.play().catch(() => {}); });
+	$('#editor').addEventListener('mouseout', (e) => { const v = e.target.closest?.('video[data-hover-play]'); if (v) v.pause(); });
+
+	$('#addBtn').addEventListener('click', addProject);
+	$('#publishBtn').addEventListener('click', () => ($('#publishBtn').dataset.mode === 'cancel' ? cancelPublish() : requestPublish()));
+	setInterval(renderStatus, 30000);
+
+	// ---------- History & trash ----------
+	// Every publish keeps a copy of all projects (photos are never deleted from
+	// the asset store, so a copy is enough to bring a version back). Deleted
+	// projects go to the trash first. Both live outside `projects`, so the
+	// publishing task never sees them.
+	const KEEP_HISTORY = 12;
+	const KEEP_TRASH = 30;
+	const fmtDate = (iso) => new Date(iso).toLocaleString('fr-FR', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+
+	async function snapshot(label) {
+		const projects = state.projects.map((p) => ({ id: p.id, data: cur(p) }));
+		const id = 'h-' + Date.now();
+		try {
+			await db.doc('history/' + id).set({ at: nowIso(), label, projects, fields: state.config.fields || [] });
+		} catch (_) {
+			toast('Copie de sauvegarde impossible (trop volumineuse)');
+			return false;
+		}
+		const old = [...state.history.map((h) => h.id), id].sort().reverse().slice(KEEP_HISTORY);
+		for (const h of old) await db.doc('history/' + h).delete().catch(() => {});
+		return true;
+	}
+
+	// What changed between a snapshot and the one before it
+	function diffLabel(entry, prev) {
+		const list = entry.data.projects || [];
+		const parts = [`${pad(list.length)} projet${list.length > 1 ? 's' : ''}`];
+		if (!prev) return parts.join(' · ');
+		const before = new Map((prev.data.projects || []).map((p) => [p.id, p.data]));
+		const now = new Set(list.map((p) => p.id));
+		const added = list.filter((p) => !before.has(p.id)).length;
+		const removed = [...before.keys()].filter((id) => !now.has(id)).length;
+		const changed = list.filter((p) => before.has(p.id) && JSON.stringify(before.get(p.id)) !== JSON.stringify(p.data)).length;
+		if (added) parts.push(`+${added} ajouté${added > 1 ? 's' : ''}`);
+		if (removed) parts.push(`−${removed} retiré${removed > 1 ? 's' : ''}`);
+		if (changed) parts.push(`${changed} modifié${changed > 1 ? 's' : ''}`);
+		if (!added && !removed && !changed) parts.push('aucun changement');
+		return parts.join(' · ');
+	}
+
+	function renderHistory() {
+		const el = $('#history');
+		if (state.view !== 'history') return;
+		const h = state.history;
+		const rows = h.map((e, i) => {
+			const confirming = state.ui.restoring === e.id;
+			const names = (e.data.projects || []).map((p) => p.data.title || 'Sans titre');
+			return `<li class="hrow">
+				<span><b>${esc(e.data.label || 'Publication')} · ${esc(fmtDate(e.data.at))}</b>
+					<span class="meta">${esc(diffLabel(e, h[i + 1]))}</span></span>
+				${!canWrite ? '<span></span>' : confirming
+					? `<span class="confirm"><button class="btn small ghost" data-restore-cancel>Annuler</button><button class="btn small danger" data-restore-yes="${esc(e.id)}">Restaurer</button></span>
+						<span class="hint">Les projets reviendront à cet état (${esc(names.slice(0, 4).join(', '))}${names.length > 4 ? '…' : ''}). L’état actuel est gardé ici avant, au cas où. Il faudra ensuite publier.</span>`
+					: `<button class="btn small" data-restore="${esc(e.id)}">Restaurer</button>`}
+			</li>`;
+		}).join('');
+		const trash = state.trash.map((t) => {
+			const d = t.data.project || {};
+			const thumb = d.cover?.asset ? `<img class="thumb" src="${blob(d.cover.asset)}" alt="" loading="lazy">` : '<span class="thumb" aria-hidden="true"></span>';
+			const purging = state.ui.purging === t.id;
+			return `<li class="hrow trash">${thumb}
+				<span><b>${esc(d.title || 'Sans titre')}</b><span class="meta">${esc(d.category || '—')} · supprimé ${esc(timeAgo(t.data.deletedAt))}</span></span>
+				${!canWrite ? '<span></span>' : purging
+					? `<span class="confirm"><button class="btn small ghost" data-purge-cancel>Annuler</button><button class="btn small danger" data-purge-yes="${esc(t.id)}">Effacer</button></span>`
+					: `<span class="confirm"><button class="btn small ghost" data-purge="${esc(t.id)}" title="Effacer définitivement">×</button><button class="btn small" data-untrash="${esc(t.id)}">Récupérer</button></span>`}
+			</li>`;
+		}).join('');
+		el.innerHTML = `
+			<div class="hist-head"><h2>Historique</h2><button class="btn small ghost" data-close-history>← Retour aux projets</button></div>
+			<section class="blk" aria-labelledby="h-trash">
+				<div class="blk-head"><h2 id="h-trash">Corbeille</h2><span class="label">${pad(state.trash.length)} projet${state.trash.length > 1 ? 's' : ''}</span></div>
+				${trash ? `<ul class="hlist">${trash}</ul>` : '<p class="empty">Aucun projet supprimé.</p>'}
+				<p class="hint">Un projet récupéré revient en fin de liste ; publiez pour le remettre sur le site. La corbeille garde les ${KEEP_TRASH} derniers projets supprimés.</p>
+			</section>
+			<section class="blk" aria-labelledby="h-pub">
+				<div class="blk-head"><h2 id="h-pub">Publications</h2><span class="label">${KEEP_HISTORY} dernières</span></div>
+				${rows ? `<ul class="hlist">${rows}</ul>` : '<p class="empty">Une copie est gardée à chaque clic sur « Publier sur le site ».</p>'}
+			</section>`;
+	}
+
+	function setView(view) {
+		state.view = view;
+		$('main.work').hidden = view === 'history';
+		$('#history').hidden = view !== 'history';
+		$('#historyBtn').setAttribute('aria-pressed', String(view === 'history'));
+		state.ui.restoring = null; state.ui.purging = null;
+		renderHistory();
+		window.scrollTo(0, 0);
+	}
+
+	async function restoreSnapshot(hid) {
+		const entry = state.history.find((h) => h.id === hid);
+		if (!entry || !canWrite) return;
+		state.ui.restoring = null;
+		try {
+			await flushSave();
+			if (!(await snapshot('Avant restauration'))) return;
+			const keep = new Set(entry.data.projects.map((p) => p.id));
+			state.selected = null; state.draft = null;
+			for (const p of state.projects) if (!keep.has(p.id)) await db.doc('projects/' + p.id).delete();
+			const stamp = nowIso();
+			for (const p of entry.data.projects) await db.doc('projects/' + p.id).set({ ...p.data, updatedAt: stamp });
+			for (const t of state.trash) if (keep.has(t.id)) await db.doc('trash/' + t.id).delete().catch(() => {});
+			// Bring back info fields the version used, keep the ones added since
+			const fields = [...(state.config.fields || [])];
+			for (const f of entry.data.fields || []) if (!fields.some((x) => x.key === f.key)) fields.push(f);
+			if (fields.length !== (state.config.fields || []).length) await db.doc('site/config').set({ ...state.config, fields });
+			touchEdits();
+			renderEditor();
+			setView('projects');
+			toast(`Version du ${fmtDate(entry.data.at)} restaurée · publiez pour mettre le site à jour`);
+		} catch (_) {
+			toast('La restauration a échoué, réessayez');
+			renderHistory();
+		}
+	}
+
+	async function untrash(tid) {
+		const t = state.trash.find((x) => x.id === tid);
+		if (!t || !canWrite) return;
+		try {
+			const max = state.projects.reduce((m, p) => Math.max(m, p.data.order ?? 0), 0);
+			await db.doc('projects/' + tid).set({ ...t.data.project, order: max + 1, updatedAt: nowIso() });
+			await db.doc('trash/' + tid).delete();
+			touchEdits();
+			toast(`« ${t.data.project?.title || 'Sans titre'} » récupéré`);
+		} catch (_) { toast('La récupération a échoué, réessayez'); }
+	}
+
+	$('#historyBtn').addEventListener('click', () => setView(state.view === 'history' ? 'projects' : 'history'));
+	$('#history').addEventListener('click', async (e) => {
+		const t = e.target.closest('button');
+		if (!t) return;
+		const ds = t.dataset;
+		if (ds.closeHistory !== undefined) return setView('projects');
+		if (ds.restore) { state.ui.restoring = ds.restore; return renderHistory(); }
+		if (ds.restoreCancel !== undefined) { state.ui.restoring = null; return renderHistory(); }
+		if (ds.restoreYes) { t.disabled = true; return restoreSnapshot(ds.restoreYes); }
+		if (ds.untrash) { t.disabled = true; return untrash(ds.untrash); }
+		if (ds.purge) { state.ui.purging = ds.purge; return renderHistory(); }
+		if (ds.purgeCancel !== undefined) { state.ui.purging = null; return renderHistory(); }
+		if (ds.purgeYes) { state.ui.purging = null; await db.doc('trash/' + ds.purgeYes).delete().catch(() => toast('Échec, réessayez')); }
+	});
+
+	// ---------- Data ----------
+	function onProjects(snap) {
+		state.projects = snap.docs.map((d) => ({ id: d.id, data: d.data() }))
+			.sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0) || a.id.localeCompare(b.id));
+		const sel = state.projects.find((p) => p.id === state.selected);
+		if (state.selected && !sel) { state.selected = null; state.draft = null; renderEditor(); }
+		else if (sel && state.draft && !saveTimer && saveState !== 'saving' && !snap.metadata.hasPendingWrites
+			&& (sel.data.updatedAt || '') > (state.draft.updatedAt || '')) {
+			// Changed elsewhere (another tab) while nothing is pending here
+			select(sel.id);
+		}
+		if (!state.selected && state.projects.length && !window.matchMedia('(max-width: 880px)').matches) select(state.projects[0].id);
+		renderList();
+		renderStatus();
+		if (state.draft && !state.ui.otherCategory) renderCategories();
+	}
+
+	function showNotice(html) { $('#notice').innerHTML = `<div class="notice"><span class="sq o" style="margin-top:5px"></span><p>${html}</p></div>`; }
+
+	(async () => {
+		db = await window.claude?.use?.('db');
+		if (!db) {
+			showNotice('<strong>Ouvrez cette page depuis claude.ai</strong>, connecté à votre compte : c’est là que vos projets sont enregistrés.');
+			$('#list').innerHTML = '<li class="empty">Projets indisponibles ici.</li>';
+			renderStatus();
+			return;
+		}
+		const [userCap, assetsCap] = await Promise.all([window.claude.use('user'), window.claude.use('assets')]);
+		assets = assetsCap;
+		try { uid = userCap ? await userCap.id() : null; } catch (_) {}
+		try { canWrite = userCap ? await userCap.canEdit() : true; } catch (_) { canWrite = true; }
+		if (!canWrite) showNotice('<strong>Lecture seule.</strong> Seul le propriétaire du site peut modifier et publier les projets.');
+		else if (!assets) showNotice('<strong>L’envoi de photos est indisponible ici.</strong> Ouvrez la page dans claude.ai pour ajouter des photos.');
+		$('#addBtn').disabled = !canWrite;
+
+		db.collection('projects').onSnapshot(onProjects, () => { $('#list').innerHTML = '<li class="empty">Impossible de charger les projets. Rechargez la page.</li>'; });
+		const byNewest = (snap) => snap.docs.map((d) => ({ id: d.id, data: d.data() })).sort((a, b) => b.id.localeCompare(a.id));
+		db.collection('history').onSnapshot((snap) => { state.history = byNewest(snap); renderHistory(); }, () => {});
+		db.collection('trash').onSnapshot((snap) => {
+			state.trash = snap.docs.map((d) => ({ id: d.id, data: d.data() })).sort((a, b) => (b.data.deletedAt || '').localeCompare(a.data.deletedAt || ''));
+			// Keep the trash bounded: drop the oldest beyond the limit
+			if (canWrite) state.trash.slice(KEEP_TRASH).forEach((t) => db.doc('trash/' + t.id).delete().catch(() => {}));
+			renderHistory();
+		}, () => {});
+		$('#historyBtn').disabled = false;
+		db.doc('site/deploy').onSnapshot((s) => { state.deploy = s.exists ? s.data() : null; renderStatus(); renderList(); }, () => {});
+		db.doc('site/edits').onSnapshot((s) => { state.edits = s.exists ? s.data() : null; renderStatus(); }, () => {});
+		db.doc('site/config').onSnapshot((s) => {
+			const c = s.exists ? s.data() : {};
+			state.config = { ...c, fields: Array.isArray(c.fields) ? c.fields : [] };
+			$('#siteName').textContent = c.name || 'Portfolio';
+			if (state.draft && !document.activeElement?.dataset?.info) renderInfos();
+		}, () => {});
+		renderStatus();
+	})();
+
+	window.addEventListener('beforeunload', () => { if (saveTimer) save(); });
+})();
+</script>

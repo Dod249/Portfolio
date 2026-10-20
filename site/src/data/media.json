@@ -1,0 +1,86 @@
+{
+	"hero": [
+		{
+			"src": "/media/hero/01.jpg",
+			"alt": "matrix"
+		},
+		{
+			"src": "/media/hero/02.jpg",
+			"alt": "inception"
+		},
+		{
+			"src": "/media/hero/03.jpg",
+			"alt": "whiplash"
+		},
+		{
+			"src": "/media/hero/04.jpg",
+			"alt": "orange mecanique"
+		},
+		{
+			"src": "/media/hero/05.jpg",
+			"alt": "retour vers le futur"
+		},
+		{
+			"src": "/media/hero/06.jpg",
+			"alt": "big fish"
+		},
+		{
+			"src": "/media/hero/07.jpg",
+			"alt": "there will be blood"
+		},
+		{
+			"src": "/media/hero/08.jpg",
+			"alt": "the truman show"
+		},
+		{
+			"src": "/media/hero/09.jpg",
+			"alt": "donnie darko"
+		},
+		{
+			"src": "/media/hero/10.jpg",
+			"alt": "le bon la brute et le truand"
+		},
+		{
+			"src": "/media/hero/11.jpg",
+			"alt": "le fabuleux destin d amelie poulain"
+		},
+		{
+			"src": "/media/hero/12.jpg",
+			"alt": "terminator 2"
+		},
+		{
+			"src": "/media/hero/13.jpg",
+			"alt": "la cite de dieu"
+		},
+		{
+			"src": "/media/hero/14.jpg",
+			"alt": "memento"
+		},
+		{
+			"src": "/media/hero/15.jpg",
+			"alt": "l armee des douze singes"
+		},
+		{
+			"src": "/media/hero/16.jpg",
+			"alt": "voyage au bout de l enfer"
+		},
+		{
+			"src": "/media/hero/17.jpg",
+			"alt": "l histoire sans fin"
+		}
+	],
+	"about": {
+		"src": "/media/about/01.jpg",
+		"alt": "hugo dodeur portrait"
+	},
+	"testimonials": [
+		{
+			"src": "/media/testimonials/01.jpg",
+			"alt": "podcast video studio"
+		},
+		{
+			"src": "/media/testimonials/02.jpg",
+			"alt": "tutoriel face camera"
+		}
+	]
+}

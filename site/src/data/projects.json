@@ -1,0 +1,378 @@
+[
+	{
+		"slug": "courts-metrages",
+		"title": "Courts métrages",
+		"category": "Fiction",
+		"year": null,
+		"details": [],
+		"summary": "Courts-métrages, bandes-annonces et interviews d'école : j'ai occupé tous les postes, de l'écriture au montage.",
+		"description": [
+			"Pendant mes études, j'ai participé à de nombreux tournages réalisés en équipe dans le cadre de mon école : courts-métrages, interviews et publicités.",
+			"J'y ai occupé tous les postes : acteur, monteur, chef opérateur, scénariste, découpage technique. Une expérience complète qui m'a appris à penser le montage dès l'écriture, comme sur « L'Éveil », un court-métrage en clair-obscur."
+		],
+		"cover": {
+			"src": "/projects/assets/c1e9a763a9486508d03575cbb625cfc4.jpg",
+			"alt": "Affiche du court-métrage L'Éveil",
+			"width": 2000,
+			"height": 1125
+		},
+		"gallery": [
+			{
+				"type": "embed",
+				"src": "https://www.youtube-nocookie.com/embed/ykvTIEDuA54",
+				"alt": "Court Métrage - L'éveil"
+			},
+			{
+				"type": "embed",
+				"src": "https://www.youtube-nocookie.com/embed/l3Y-JFy1uVg",
+				"alt": "Dimensio | Bande-annonce VF"
+			},
+			{
+				"type": "embed",
+				"src": "https://www.youtube-nocookie.com/embed/lawCkxY5DpU",
+				"alt": "WORKSHOP | Interview"
+			},
+			{
+				"type": "embed",
+				"src": "https://www.youtube-nocookie.com/embed/eR3reS3iEYM",
+				"alt": "UN PETIT REMONTANT"
+			}
+		]
+	},
+	{
+		"slug": "motion-design-ourama",
+		"title": "Motion Design Ourama",
+		"category": "Motion design",
+		"year": null,
+		"details": [],
+		"summary": "Des animations pour présenter les sites internet d'Ourama.",
+		"description": [
+			"Ourama crée des sites internet pour les professions réglementées. J'ai animé leurs réalisations en motion design : mur de sites, typographies, chartes graphiques qui se construisent à l'écran.",
+			"Ces séquences rythment leurs vidéos YouTube et leurs publications, et rendent concret un travail souvent difficile à montrer."
+		],
+		"cover": {
+			"src": "/projects/assets/21fd9884dc3d0c7ae2dce358f1781985.jpg",
+			"alt": "",
+			"width": 1920,
+			"height": 1080
+		},
+		"gallery": [
+			{
+				"type": "embed",
+				"src": "https://www.youtube-nocookie.com/embed/y0Vc325Ul60",
+				"alt": "Intro Ourama en motion design"
+			},
+			{
+				"type": "embed",
+				"src": "https://www.youtube-nocookie.com/embed/1aj0g6dapmw",
+				"alt": "Intro Ourama en motion design (2)"
+			},
+			{
+				"type": "embed",
+				"src": "https://www.youtube-nocookie.com/embed/iw61-j2MRuE",
+				"alt": "Ancienne intro Ourama"
+			},
+			{
+				"type": "embed",
+				"src": "https://www.youtube-nocookie.com/embed/i3d-27_xo9A",
+				"alt": "Présentation d'un site client en motion design"
+			}
+		]
+	},
+	{
+		"slug": "tutos-face-camera",
+		"title": "Tutos face caméra",
+		"category": "Corporate",
+		"year": null,
+		"details": [],
+		"summary": "Plus d'une centaine de tutoriels face caméra pour une chaîne YouTube.",
+		"description": [
+			"Pour la chaîne YouTube d'Ourama, j'ai réalisé une longue série de tutoriels face caméra, comme « Automatiser son cabinet ».",
+			"Montage dynamique, illustrations animées pour rendre les explications claires, miniatures et sous-titres : un format régulier, livré dans les temps."
+		],
+		"cover": {
+			"src": "/projects/assets/c1981e4b60fe1e834f205dd0007f40c1.jpg",
+			"alt": "Miniature du tutoriel Automatiser son cabinet",
+			"width": 1280,
+			"height": 720
+		},
+		"gallery": [
+			{
+				"type": "embed",
+				"src": "https://www.youtube-nocookie.com/embed/SHnHebF3gTQ?start=148",
+				"alt": "AUTOMATISER SON CABINET - la méthode complète"
+			},
+			{
+				"type": "embed",
+				"src": "https://www.youtube-nocookie.com/embed/_FuXPRPhvoY?start=56",
+				"alt": "Pourquoi ton SITE INTERNET ne t’apporte PAS de CLIENTS ? (et comment y remédier)"
+			},
+			{
+				"type": "embed",
+				"src": "https://www.youtube-nocookie.com/embed/2CSLm2NUj84?start=18",
+				"alt": "Comment générer des LEADS avec des outils interactifs SANS CODER !"
+			},
+			{
+				"type": "embed",
+				"src": "https://www.youtube-nocookie.com/embed/q2YHr939cXs?start=10",
+				"alt": "Comment la VIDÉO peut transformer votre BUSINESS ?"
+			}
+		]
+	},
+	{
+		"slug": "le-cheat-code",
+		"title": "Le Cheat Code",
+		"category": "Podcast",
+		"year": null,
+		"details": [],
+		"summary": "Un podcast vidéo d'entrepreneurs, monté pour YouTube et les plateformes audio.",
+		"description": [
+			"Pour Ourama, je monte « Le Cheat Code », un podcast où des entrepreneurs et des professionnels racontent leur parcours et leurs méthodes. Chaque épisode est tourné en multi-caméras puis monté pour garder un rythme vivant, sans couper la parole.",
+			"Habillage graphique aux couleurs du podcast, miniatures, sous-titres et extraits courts pour les réseaux : chaque épisode part avec tout ce qu'il faut pour être diffusé."
+		],
+		"cover": {
+			"src": "/projects/assets/8b48ba69f12fa0c7c733cfcd78c484d5.jpg",
+			"alt": "",
+			"width": 2400,
+			"height": 1600
+		},
+		"gallery": [
+			{
+				"type": "embed",
+				"src": "https://www.youtube-nocookie.com/embed/videoseries?list=PLpMLplb9_XVUOR11lRrZDixFQPSRlkn2L",
+				"alt": "Playlist Le Cheat Code"
+			},
+			{
+				"type": "embed",
+				"src": "https://www.youtube-nocookie.com/embed/30luNBG3PNU",
+				"alt": "Paul Benelli - MYM, au-delà de l'image"
+			},
+			{
+				"type": "embed",
+				"src": "https://www.youtube-nocookie.com/embed/ioUrPIJZXSU?start=558",
+				"alt": "Nicolas Bastuck, journaliste au Point : le juridique décrypté"
+			},
+			{
+				"type": "embed",
+				"src": "https://www.youtube-nocookie.com/embed/FXsEhgnmw8Y?start=87",
+				"alt": "Michael Bouyrie - Défendre les sportifs dans un système déséquilibré"
+			}
+		]
+	},
+	{
+		"slug": "formats-verticaux",
+		"title": "Formats verticaux",
+		"category": "Podcast",
+		"year": null,
+		"details": [],
+		"summary": "Des vidéos verticales conçues de A à Z : écriture, lumière, tournage et montage.",
+		"description": [
+			"J'ai réalisé de nombreuses vidéos verticales pour les réseaux sociaux, en menant chaque projet de A à Z : écriture des dialogues, éclairage, tournage et montage.",
+			"Par exemple, une série où je présente les échelles de plan, les focales et les angles de caméra à utiliser pour capter l'attention sur les réseaux : plan large, gros plan, contre-plongée… Chaque notion est illustrée à l'image, avec un rythme pensé pour accrocher dès la première seconde."
+		],
+		"cover": {
+			"src": "/projects/assets/ed7cadc4c285c9c0d20dfbb6c514fb2d.jpg",
+			"alt": "",
+			"width": 1350,
+			"height": 2400
+		},
+		"gallery": [
+			{
+				"type": "embed",
+				"src": "https://www.youtube-nocookie.com/embed/Q35Qo_JsE8A",
+				"alt": "WIDE SHOT"
+			},
+			{
+				"type": "embed",
+				"src": "https://www.youtube-nocookie.com/embed/ZJ2RUVUi3PA",
+				"alt": "Talk Book"
+			},
+			{
+				"type": "embed",
+				"src": "https://www.youtube-nocookie.com/embed/mz1hH2d7fKs",
+				"alt": "CLOSE-UP"
+			},
+			{
+				"type": "embed",
+				"src": "https://www.youtube-nocookie.com/embed/mz1hH2d7fKs",
+				"alt": "LOW ANGLE"
+			}
+		]
+	},
+	{
+		"slug": "portraits-d-entreprise",
+		"title": "Portraits d'entreprise",
+		"category": "Corporate",
+		"year": null,
+		"details": [],
+		"summary": "Avec PICTION, des startups et des entrepreneurs filmés là où ils travaillent.",
+		"description": [
+			"Mon premier gros projet a été une petite boîte de production montée avec un ami : PICTION.",
+			"Nous réalisions des vidéos et des photos pour des startups en lancement, afin de leur donner la meilleure visibilité possible : interviews, présentations, immersions dans leur entreprise ou sur des salons.",
+			"À chaque fois, la même idée : montrer le métier en action et laisser la personne raconter son histoire, avec un montage simple et sincère."
+		],
+		"cover": {
+			"src": "/projects/assets/662b618dfddd5e5d585f5c696d0b3805.jpg",
+			"alt": "",
+			"width": 2400,
+			"height": 1350
+		},
+		"gallery": [
+			{
+				"type": "embed",
+				"src": "https://www.youtube-nocookie.com/embed/dwfQgh11eRQ?start=50",
+				"alt": "Interview - Le Comptoir de Mathilde"
+			},
+			{
+				"type": "embed",
+				"src": "https://www.youtube-nocookie.com/embed/t4VeCI6iQVk?start=1",
+				"alt": "Interview - Esprit Zen"
+			},
+			{
+				"type": "embed",
+				"src": "https://www.youtube-nocookie.com/embed/TQE7z7TwMCM?start=1",
+				"alt": "Événement Chibi Rouen - Esprit Zen x PICTION"
+			},
+			{
+				"type": "embed",
+				"src": "https://www.youtube-nocookie.com/embed/AUCgHl41exA",
+				"alt": "PICTION au BIG (événement de Bpifrance)"
+			},
+			{
+				"type": "embed",
+				"src": "https://www.youtube-nocookie.com/embed/ZqsaJDnNlv8",
+				"alt": "Interview - Tu commences demain"
+			}
+		]
+	},
+	{
+		"slug": "liberall-conseil",
+		"title": "LIBERALL CONSEIL",
+		"category": "Corporate",
+		"year": null,
+		"details": [],
+		"summary": "Podcasts, tutoriels et une émission d'interviews de dirigeants, du tournage au motion design.",
+		"description": [
+			"Pour Liberall Group, j'ai réalisé des podcasts, des vidéos tutoriels et de formation, ainsi qu'une émission : « Qui veut consolider le marché ? », une série d'interviews filmées où des dirigeants partagent leur vision du marché.",
+			"Tournage, montage, habillage graphique et intros en motion design (Inbound, Outbound) : chaque format garde une identité sobre et élégante, cohérente avec celle du groupe, et pensée pour LinkedIn comme pour YouTube."
+		],
+		"cover": {
+			"src": "/projects/assets/4ba55bdb4b053157d632ca9e632cc6f3.jpg",
+			"alt": "Titre animé de la série d'interviews Liberall Group",
+			"width": 2000,
+			"height": 1124
+		},
+		"gallery": [
+			{
+				"type": "embed",
+				"src": "https://www.youtube-nocookie.com/embed/videoseries?list=PLpMLplb9_XVX75GsnUPZcDhIa5YTm9-Ma",
+				"alt": "Playlist « Qui veut consolider le marché ? »"
+			},
+			{
+				"type": "embed",
+				"src": "https://www.youtube-nocookie.com/embed/pKDXCSNvDf8",
+				"alt": "Bande-annonce - Qui veut consolider le marché ?"
+			},
+			{
+				"type": "embed",
+				"src": "https://www.youtube-nocookie.com/embed/_PUqE10B1mM",
+				"alt": "Intro Outbound"
+			},
+			{
+				"type": "embed",
+				"src": "https://www.youtube-nocookie.com/embed/-MmFnx1c10M",
+				"alt": "Intro Inbound"
+			},
+			{
+				"type": "embed",
+				"src": "https://www.youtube-nocookie.com/embed/Y1v18mEtivo",
+				"alt": "Présentation de Liberall Group"
+			}
+		]
+	},
+	{
+		"slug": "salons-evenements",
+		"title": "Salons / Événements",
+		"category": "Corporate",
+		"year": null,
+		"details": [],
+		"summary": "Salons et congrès professionnels filmés sur le vif, du tournage à l'étalonnage.",
+		"description": [
+			"J'ai réalisé plusieurs vidéos événementielles, du tournage au montage et à l'étalonnage : Salon de l'expertise-comptable, 81e Congrès des experts-comptables pour Liberall Group…",
+			"Sur place, je capte l'ambiance, les stands et les rencontres, et je donne la parole aux professionnels présents. Au montage, ces images deviennent des vidéos rythmées qui donnent envie d'y être, prêtes pour YouTube et LinkedIn."
+		],
+		"cover": {
+			"src": "/projects/assets/69de01702b17fa195308fc3080ed20e3.jpg",
+			"alt": "",
+			"width": 2400,
+			"height": 1600
+		},
+		"gallery": [
+			{
+				"type": "embed",
+				"src": "https://www.youtube-nocookie.com/embed/IP2jj7YlfhI",
+				"alt": "En pleine immersion au 81e Congrès des EXPERTS-COMPTABLES | Liberall Group"
+			},
+			{
+				"type": "embed",
+				"src": "https://www.youtube-nocookie.com/embed/Zfw_rpENKUM?start=4",
+				"alt": "Quelles sont les DIFFÉRENCES entre les outils d’IA destinés aux AVOCATS ?"
+			},
+			{
+				"type": "embed",
+				"src": "https://www.youtube-nocookie.com/embed/dDQz6Q9FBFk?start=2",
+				"alt": "À la rencontre des PROS au Salon de l’EXPERTISE-COMPTABLE !"
+			}
+		]
+	},
+	{
+		"slug": "autres",
+		"title": "Autres",
+		"category": "Divers",
+		"year": null,
+		"details": [],
+		"summary": "Fiction, game design, publicité, interviews : mes autres réalisations.",
+		"description": [
+			"Toutes mes autres réalisations, en dehors des grandes séries : projets personnels, travaux d'école et commandes ponctuelles.",
+			"On y trouve un projet de game design, une pastille « Popcorn », une publicité en motion design, des interviews au Festival du Livre de Paris ou encore un projet réalisé sous Unreal Engine : autant de terrains pour expérimenter de nouveaux outils et de nouveaux styles."
+		],
+		"cover": {
+			"src": "/projects/assets/e54124a23d29a671a8b979ea3e6404b3.jpg",
+			"alt": "",
+			"width": 2400,
+			"height": 1600
+		},
+		"gallery": [
+			{
+				"type": "embed",
+				"src": "https://www.youtube-nocookie.com/embed/iRLXmxKrgFw",
+				"alt": "Game Design"
+			},
+			{
+				"type": "embed",
+				"src": "https://www.youtube-nocookie.com/embed/EAoKF47ht1Q",
+				"alt": "Pastille Popcorn"
+			},
+			{
+				"type": "embed",
+				"src": "https://www.youtube-nocookie.com/embed/oV0knW0ufn0",
+				"alt": "Pub motion design - Louis Vuitton 450"
+			},
+			{
+				"type": "embed",
+				"src": "https://www.youtube-nocookie.com/embed/ZXG1lIaxWdI",
+				"alt": "Interview Festival du Livre de Paris (short)"
+			},
+			{
+				"type": "embed",
+				"src": "https://www.youtube-nocookie.com/embed/2sfYVJX_xLA",
+				"alt": "Interview Festival du Livre de Paris"
+			},
+			{
+				"type": "embed",
+				"src": "https://www.youtube-nocookie.com/embed/I5cNRMHxSCY",
+				"alt": "Projet Unreal Engine \"Aliens\""
+			}
+		]
+	}
+]

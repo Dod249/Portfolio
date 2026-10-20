@@ -41,7 +41,7 @@ export default function WorkSection({ onOpen }: { onOpen: (index: number) => voi
 
 	return (
 		<section id="travaux" className="relative z-10 scroll-mt-20 bg-ink">
-			<div className="mx-auto max-w-[1400px] px-5 py-24 md:px-10 md:py-36">
+			<div className="mx-auto max-w-[1400px] px-5 pb-8 pt-24 md:px-10 md:pb-12 md:pt-36">
 				<div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
 					<div>
 						<DecodeText as="p" text={COPY.work.label} className="text-[11px] uppercase tracking-[0.25em] text-label" />

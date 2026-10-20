@@ -11,7 +11,7 @@ import { cn } from '@/lib/utils';
 export const FIRST_PAGE = 9;
 export const PAGE = 6;
 
-const MIN_RATIO = 1; // tallest allowed: vertical shots are shown square
+const MIN_RATIO = 4 / 3; // tallest allowed: vertical shots are cropped to 4:3 so columns end level
 const MAX_RATIO = 1.8; // widest allowed
 const ratioOf = (p: Project) => {
 	const { width, height } = p.cover;

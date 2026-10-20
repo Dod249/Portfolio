@@ -131,6 +131,9 @@ function PlaylistFacade({ list, title, poster }: { list: string; title: string; 
 	);
 }
 
+/** How many videos of a playlist the grid shows. */
+const PLAYLIST_SHOWN = 6;
+
 /**
  * A YouTube playlist shown as what it is: a grid of its videos. Each one plays
  * in place when clicked; a link opens the whole playlist on YouTube.
@@ -139,7 +142,7 @@ function PlaylistGrid({ list, videos }: { list: string; videos: { id: string; ti
 	return (
 		<div>
 			<div className="grid grid-cols-2 gap-3 md:grid-cols-3">
-				{videos.map((video) => (
+				{videos.slice(0, PLAYLIST_SHOWN).map((video) => (
 					<div key={video.id} className="min-w-0">
 						<YouTubeFacade src={`https://www.youtube-nocookie.com/embed/${video.id}`} title={video.title} compact />
 						<p className="mt-1.5 line-clamp-2 text-[11px] leading-snug text-paper/70">{video.title}</p>
@@ -152,7 +155,7 @@ function PlaylistGrid({ list, videos }: { list: string; videos: { id: string; ti
 				rel="noopener noreferrer"
 				className="mt-3 inline-block text-[10px] uppercase tracking-[0.2em] text-stone hover:text-paper"
 			>
-				Voir la playlist sur YouTube · {videos.length} vidéos ↗
+				Voir toute la playlist sur YouTube ↗
 			</a>
 		</div>
 	);

@@ -42,7 +42,7 @@ export type ExtraField =
 export const COPY = {
 	hero: {
 		label: '',
-		tagline: 'Podcasts · Interviews · Motion design',
+		tagline: 'Podcasts · Corporate · Motion design',
 	},
 	intro: {
 		label: '01 — Studio',

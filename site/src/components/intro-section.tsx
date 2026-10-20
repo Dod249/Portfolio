@@ -15,7 +15,7 @@ export default function IntroSection({ id }: { id: string }) {
 			<div className="mx-auto max-w-[1400px] px-5 pt-28 md:px-10 md:pt-40">
 				<div className="flex flex-col items-center text-center">
 					<DecodeText as="p" text={COPY.intro.label} className="mb-8 text-[11px] uppercase tracking-[0.25em] text-label" />
-					<h2 className="font-pixel text-[clamp(2.5rem,7.5vw,6.5rem)] uppercase leading-[0.9] tracking-tight">
+					<h2 className="font-pixel text-[clamp(2rem,6vw,5.2rem)] uppercase leading-[0.9] tracking-tight">
 						{COPY.intro.title.map((line, i) => (
 							<DecodeText key={line} text={line} className="block" delay={i * 200} duration={1200 + i * 100} />
 						))}

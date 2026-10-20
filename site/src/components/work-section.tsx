@@ -45,7 +45,7 @@ export default function WorkSection({ onOpen }: { onOpen: (index: number) => voi
 				<div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
 					<div>
 						<DecodeText as="p" text={COPY.work.label} className="text-[11px] uppercase tracking-[0.25em] text-label" />
-						<h2 className="mt-5 font-pixel text-[clamp(2.75rem,8vw,7rem)] uppercase leading-[0.88] tracking-tight">
+						<h2 className="mt-5 font-pixel text-[clamp(2.2rem,6.4vw,5.6rem)] uppercase leading-[0.88] tracking-tight">
 							{COPY.work.title.map((line, i) => (
 								<DecodeText key={line} text={line} className="block" delay={i * 150} duration={1100 + i * 100} />
 							))}

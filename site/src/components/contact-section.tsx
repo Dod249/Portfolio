@@ -95,7 +95,7 @@ export default function ContactSection() {
 				{/* Pitch + direct contact */}
 				<div className="lg:col-span-5">
 					<DecodeText as="p" text={COPY.contact.label} className="text-[11px] uppercase tracking-[0.25em] text-label" />
-					<h2 className="mt-8 font-pixel text-[clamp(3rem,8vw,7.5rem)] uppercase leading-[0.86] tracking-tight">
+					<h2 className="mt-8 font-pixel text-[clamp(2.4rem,6.4vw,6rem)] uppercase leading-[0.86] tracking-tight">
 						<DecodeText text={COPY.contact.title[0]} className="block" duration={1100} />
 						<span className="flex items-center">
 							<DecodeText text={COPY.contact.title[1] ?? ''} delay={180} duration={1200} />

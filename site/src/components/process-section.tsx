@@ -69,7 +69,7 @@ export default function ProcessSection() {
 			<div className="mx-auto max-w-[1400px] px-5 pb-16 pt-16 md:px-10 md:pb-20 md:pt-20">
 				<div className="flex flex-col items-center text-center">
 					<DecodeText as="p" text={COPY.process.label} className="text-[11px] uppercase tracking-[0.25em] text-label" />
-					<h2 className="mt-5 font-pixel text-[clamp(2.5rem,7vw,6rem)] uppercase leading-[0.9] tracking-tight">
+					<h2 className="mt-5 font-pixel text-[clamp(2rem,5.6vw,4.8rem)] uppercase leading-[0.9] tracking-tight">
 						{COPY.process.title.map((line, i) => (
 							<DecodeText key={line} text={line} className="block" delay={i * 150} duration={1200 + i * 100} />
 						))}

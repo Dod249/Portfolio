@@ -13,7 +13,7 @@ export default function FaqSection() {
 			<div className="mx-auto grid max-w-[1400px] gap-12 px-5 py-24 md:px-10 md:py-36 lg:grid-cols-12">
 				<div className="lg:col-span-6">
 					<DecodeText as="p" text={COPY.faq.label} className="text-[11px] uppercase tracking-[0.25em] text-label" />
-					<h2 className="mt-5 font-pixel text-[clamp(2.5rem,8vw,5rem)] uppercase leading-[0.9] tracking-tight lg:text-[clamp(2.5rem,4.8vw,5rem)]">
+					<h2 className="mt-5 font-pixel text-[clamp(2rem,6.4vw,4rem)] uppercase leading-[0.9] tracking-tight lg:text-[clamp(2rem,3.8vw,4rem)]">
 						{COPY.faq.title.map((line, i) => (
 							<DecodeText key={line} text={line} className="block" delay={i * 150} duration={1100 + i * 100} />
 						))}

@@ -40,7 +40,7 @@ export default function WorkSection({ onOpen }: { onOpen: (index: number) => voi
 	const remaining = items.length - visible.length;
 
 	return (
-		<section id="travaux" className="relative z-10 scroll-mt-20 bg-ink">
+		<section id="travaux" className="relative z-10 scroll-mt-20 bg-stage">
 			<div className="mx-auto max-w-[1400px] px-5 pb-8 pt-24 md:px-10 md:pb-12 md:pt-36">
 				<div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
 					<div>

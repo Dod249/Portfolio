@@ -149,7 +149,7 @@ export default function PhotographyHero({
 		<section
 			ref={sectionRef}
 			aria-label="Introduction"
-			className="sticky top-0 h-svh w-full overflow-hidden bg-ink text-paper"
+			className="sticky top-0 h-svh w-full overflow-hidden bg-stage text-paper"
 		>
 			<div
 				className="absolute inset-0 origin-center will-change-transform"
@@ -180,7 +180,7 @@ export default function PhotographyHero({
 			{/* Loader */}
 			<div
 				className={cn(
-					'pointer-events-none absolute inset-0 z-20 flex items-center justify-center bg-ink transition-opacity duration-400',
+					'pointer-events-none absolute inset-0 z-20 flex items-center justify-center bg-stage transition-opacity duration-400',
 					phase === 'loading' ? 'opacity-100' : 'opacity-0'
 				)}
 			>
@@ -228,7 +228,7 @@ export default function PhotographyHero({
 					out={leaving}
 					delay={900}
 					duration={1400}
-					className="mt-8 block max-w-md text-[13px] leading-relaxed text-paper/70 md:mt-10"
+					className="mt-8 block text-base uppercase tracking-[0.2em] text-paper/80 md:mt-10 md:text-xl"
 				/>
 			</div>
 

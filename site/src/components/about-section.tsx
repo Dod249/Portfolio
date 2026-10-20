@@ -8,7 +8,7 @@ import { scrollToSection } from '@/lib/scroll';
 
 export default function AboutSection() {
 	return (
-		<section id="apropos" className="relative z-10 scroll-mt-20 border-t border-line bg-ink">
+		<section id="apropos" className="relative z-10 scroll-mt-20 border-t border-line bg-stage">
 			<div className="mx-auto grid max-w-[1400px] items-center gap-14 px-5 py-24 md:px-10 md:py-36 lg:grid-cols-12 lg:gap-12">
 				{/* Portrait melting into the page through black pixels */}
 				<div className="lg:col-span-5">

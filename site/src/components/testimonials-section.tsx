@@ -43,7 +43,7 @@ export default function TestimonialsSection() {
 		<section
 			aria-roledescription="carrousel"
 			aria-label="Témoignages clients"
-			className="relative z-10 border-t border-line bg-ink"
+			className="relative z-10 border-t border-line bg-stage"
 		>
 			<div className="mx-auto max-w-[1400px] px-5 py-20 md:px-10 md:py-28">
 				<div className="mb-8 flex items-center justify-between gap-4 text-[11px] uppercase tracking-[0.25em] text-stone">

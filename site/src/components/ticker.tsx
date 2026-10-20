@@ -4,7 +4,7 @@ import { COPY, SERVICES } from '@/data/site';
 /** Services scrolling by, right after the intro. */
 export default function Ticker() {
 	return (
-		<section aria-label={COPY.services.label} className="relative z-10 flex items-stretch border-y border-line bg-ink">
+		<section aria-label={COPY.services.label} className="relative z-10 flex items-stretch border-y border-line bg-stage">
 			<p className="hidden shrink-0 items-center border-r border-line px-6 text-[10px] uppercase leading-relaxed tracking-[0.25em] text-stone md:flex md:px-10">
 				<span className="max-w-[9rem]">{COPY.services.label}</span>
 			</p>

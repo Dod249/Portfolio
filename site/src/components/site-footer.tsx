@@ -22,7 +22,7 @@ function ParisClock() {
 
 export default function SiteFooter() {
 	return (
-		<footer className="relative z-10 border-t border-line bg-ink">
+		<footer className="relative z-10 border-t border-line bg-stage">
 			<div className="mx-auto grid max-w-[1400px] grid-cols-2 gap-10 px-5 py-16 text-[11px] uppercase tracking-[0.2em] md:grid-cols-4 md:px-10">
 				<div className="col-span-2 md:col-span-1">
 					<p className="font-pixel text-xl tracking-[0.15em]">

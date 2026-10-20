@@ -9,7 +9,7 @@ export default function FaqSection() {
 	const [open, setOpen] = useState<number | null>(0);
 
 	return (
-		<section id="faq" className="relative z-10 scroll-mt-20 border-t border-line bg-ink">
+		<section id="faq" className="relative z-10 scroll-mt-20 border-t border-line bg-stage">
 			<div className="mx-auto grid max-w-[1400px] gap-12 px-5 py-24 md:px-10 md:py-36 lg:grid-cols-12">
 				<div className="lg:col-span-6">
 					<DecodeText as="p" text={COPY.faq.label} className="text-[11px] uppercase tracking-[0.25em] text-label" />

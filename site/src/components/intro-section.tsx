@@ -10,7 +10,7 @@ export default function IntroSection({ id }: { id: string }) {
 		<section
 			id={id}
 			tabIndex={-1}
-			className="relative z-10 border-t border-line bg-ink pb-20 text-paper outline-none md:pb-28"
+			className="relative z-10 border-t border-line bg-stage pb-20 text-paper outline-none md:pb-28"
 		>
 			<div className="mx-auto max-w-[1400px] px-5 pt-28 md:px-10 md:pt-40">
 				<div className="flex flex-col items-center text-center">

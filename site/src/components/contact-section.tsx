@@ -90,7 +90,7 @@ export default function ContactSection() {
 	};
 
 	return (
-		<section id="contact" className="relative z-10 scroll-mt-20 border-t border-line bg-ink">
+		<section id="contact" className="relative z-10 scroll-mt-20 border-t border-line bg-stage">
 			<div className="mx-auto grid max-w-[1400px] gap-16 px-5 py-24 md:px-10 md:py-36 lg:grid-cols-12 lg:gap-10">
 				{/* Pitch + direct contact */}
 				<div className="lg:col-span-5">

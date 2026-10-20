@@ -251,7 +251,17 @@ const createClothMaterial = () => {
           color.rgb += (hash(gl_FragCoord.xy + fract(time) * 97.0) - 0.5) * 0.07;
         }
 
-        gl_FragColor = vec4(color.rgb, color.a * opacity);
+        // Rounded corners, 8 screen pixels whatever the distance: measure the
+        // plane in pixels from the UV derivatives, then cut a rounded rectangle
+        vec2 pxPerUv = 1.0 / max(fwidth(vUv), vec2(1e-6));
+        vec2 halfSize = 0.5 * pxPerUv;
+        vec2 p = (vUv - 0.5) * pxPerUv;
+        float radius = min(8.0, min(halfSize.x, halfSize.y));
+        vec2 q = abs(p) - (halfSize - radius);
+        float dist = length(max(q, 0.0)) + min(max(q.x, q.y), 0.0) - radius;
+        float corner = clamp(0.5 - dist, 0.0, 1.0);
+
+        gl_FragColor = vec4(color.rgb, color.a * opacity * corner);
         #include <colorspace_fragment>
       }
     `,

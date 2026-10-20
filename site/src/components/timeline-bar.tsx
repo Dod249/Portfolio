@@ -103,7 +103,7 @@ export default function TimelineBar() {
 					</div>
 					<div className="mt-[3px] hidden h-4 items-center gap-px overflow-hidden rounded-[3px] bg-[#1d3b2a]/60 px-0.5 sm:flex" aria-hidden="true">
 						{wave.map((h, i) => (
-							<span key={i} className="w-[2px] flex-1 bg-[#5fd38d]/70" style={{ height: `${h * 100}%` }} />
+							<span key={i} className="w-[2px] flex-1 bg-wave/70" style={{ height: `${h * 100}%` }} />
 						))}
 					</div>
 					{/* Playhead */}

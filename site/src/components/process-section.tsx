@@ -18,7 +18,7 @@ function Step({ step, index, lit }: { step: (typeof PROCESS)[number]; index: num
 			)}
 		>
 			<div className="flex items-start justify-between">
-				<PixelIcon name={step.icon} on={lit} replay={hover} className={cn('w-14 md:w-16', lit && 'text-accent')} />
+				<PixelIcon name={step.icon} on={lit} replay={hover} className={cn('w-14 md:w-16', lit && 'text-wave')} />
 				<span className="text-[10px] uppercase tracking-[0.25em] text-stone">{step.duration}</span>
 			</div>
 			<p className="mt-10 text-[11px] tabular-nums tracking-[0.2em] text-stone">{pad(index + 1)}</p>

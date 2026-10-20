@@ -17,6 +17,8 @@
   --color-accent-ink: #0e0e0e;
   /* Small section labels: grey in black & white, accent otherwise */
   --color-label: #7b7b7b;
+  /* Second colour: the green of the audio track in the timeline */
+  --color-wave: #5fd38d;
 
   --animate-blink: blink 1.05s steps(1) infinite;
 

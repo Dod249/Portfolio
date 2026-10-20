@@ -160,7 +160,8 @@ export const TESTIMONIALS = [
 	{
 		quote:
 			'Hugo a réalisé nos podcasts et leur intro animée, puis il a tourné et monté notre événement en une semaine seulement. Réactif, rigoureux et toujours dans les temps.',
-		author: 'Ourama',
+		author: 'Louis Gaillot',
+		role: 'Liberall Group',
 	},
 ];
 

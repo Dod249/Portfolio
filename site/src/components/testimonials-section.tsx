@@ -70,6 +70,12 @@ export default function TestimonialsSection() {
 					<div className="flex flex-col justify-between gap-6 md:col-span-4 md:items-end md:text-right">
 						<p className="text-[11px] uppercase leading-relaxed tracking-[0.15em]">
 							<DecodeText key={`a-${shown}`} text={item.author} play={inView} delay={300} duration={600} />
+							{'role' in item && item.role && (
+								<>
+									<br />
+									<span className="text-stone">{item.role}</span>
+								</>
+							)}
 						</p>
 						<div className="flex items-center gap-4">
 							<div className="flex gap-1" aria-hidden="true">

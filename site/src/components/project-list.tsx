@@ -106,7 +106,7 @@ export default function ProjectList({
 				ref={previewRef}
 				aria-hidden="true"
 				className={cn(
-					'pointer-events-none fixed left-0 top-0 z-40 hidden w-56 transition-opacity duration-200 [@media(hover:hover)]:block lg:w-64',
+					'pointer-events-none fixed left-0 top-0 z-40 hidden w-40 transition-opacity duration-200 [@media(hover:hover)]:block lg:w-44',
 					current ? 'opacity-100' : 'opacity-0'
 				)}
 			>

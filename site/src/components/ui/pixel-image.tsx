@@ -7,6 +7,8 @@ interface PixelImageProps {
 	className?: string;
 	style?: CSSProperties;
 	imgClassName?: string;
+	/** Vertical focus of the crop, 0 = top, 0.5 = centre, 1 = bottom. */
+	focusY?: number;
 	/** Horizontal cell counts, from blockiest to finest, before the real image. */
 	steps?: number[];
 	stepDuration?: number;
@@ -33,6 +35,7 @@ export default function PixelImage({
 	stepDuration = 75,
 	replay = 0,
 	immediate = false,
+	focusY = 0.5,
 }: PixelImageProps) {
 	const wrapperRef = useRef<HTMLDivElement>(null);
 	const imgRef = useRef<HTMLImageElement>(null);
@@ -83,7 +86,7 @@ export default function PixelImage({
 			const sw = width / scale;
 			const sh = height / scale;
 			const sx = (img.naturalWidth - sw) / 2;
-			const sy = (img.naturalHeight - sh) / 2;
+			const sy = (img.naturalHeight - sh) * focusY;
 
 			bufferCtx.drawImage(img, sx, sy, sw, sh, 0, 0, cols, rows);
 			ctx.imageSmoothingEnabled = false;
@@ -138,7 +141,7 @@ export default function PixelImage({
 			img.removeEventListener('load', onLoad);
 			playRef.current = null;
 		};
-	}, [src, steps, stepDuration, immediate]);
+	}, [src, steps, stepDuration, immediate, focusY]);
 
 	// Quick glitch replay, only once the first reveal is over
 	useEffect(() => {
@@ -149,6 +152,7 @@ export default function PixelImage({
 		<div ref={wrapperRef} style={style} className={cn('relative overflow-hidden bg-line', className)}>
 			<img
 				ref={imgRef}
+				style={focusY === 0.5 ? undefined : { objectPosition: `center ${focusY * 100}%` }}
 				src={src}
 				alt={alt}
 				crossOrigin="anonymous"

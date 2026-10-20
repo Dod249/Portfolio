@@ -198,14 +198,16 @@ export default function PhotographyHero({
 				className="pointer-events-none absolute inset-0 z-10 flex flex-col items-center justify-center px-4 text-center mix-blend-difference"
 				style={{ transform: 'translateY(calc(var(--exit, 0) * -12vh))' }}
 			>
-				<DecodeText
-					as="p"
-					text={COPY.hero.label}
-					play={started}
-					out={leaving}
-					delay={300}
-					className="mb-6 text-[11px] uppercase tracking-[0.25em] md:mb-8"
-				/>
+				{COPY.hero.label && (
+					<DecodeText
+						as="p"
+						text={COPY.hero.label}
+						play={started}
+						out={leaving}
+						delay={300}
+						className="mb-6 text-[11px] uppercase tracking-[0.25em] md:mb-8"
+					/>
+				)}
 				<h1 className="font-pixel text-[clamp(3.25rem,12vw,10.5rem)] uppercase leading-[0.86] tracking-tight">
 					{words.map((word, i) => (
 						<span key={word} className="flex items-center justify-center">

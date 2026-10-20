@@ -8,7 +8,7 @@
 		"summary": "Courts-métrages, bandes-annonces et interviews d'école : j'ai occupé tous les postes, de l'écriture au montage.",
 		"description": [
 			"Pendant mes études, j'ai participé à de nombreux tournages réalisés en équipe dans le cadre de mon école : courts-métrages, interviews et publicités.",
-			"J'y ai occupé tous les postes : acteur, monteur, chef opérateur, scénariste, découpage technique. Une expérience complète qui m'a appris à penser le montage dès l'écriture, comme sur « L'Éveil », un court-métrage en clair-obscur."
+			"J'y ai occupé tous les postes : acteur, monteur, chef opérateur, scénariste, découpage technique. Une expérience complète qui m'a appris à penser le montage dès l'écriture."
 		],
 		"cover": {
 			"src": "/projects/assets/c1e9a763a9486508d03575cbb625cfc4.jpg",
@@ -45,9 +45,9 @@
 		"category": "Motion design",
 		"year": null,
 		"details": [],
-		"summary": "Des animations pour présenter les sites internet d'Ourama.",
+		"summary": "L'intro animée d'Ourama et la présentation de ses sites internet, en motion design.",
 		"description": [
-			"Ourama crée des sites internet pour les professions réglementées. J'ai animé leurs réalisations en motion design : mur de sites, typographies, chartes graphiques qui se construisent à l'écran.",
+			"Ourama crée des sites internet pour les professions réglementées. J'ai animé en motion design l'intro de l'entreprise elle-même, puis la présentation de ses réalisations : murs de sites, typographies, chartes graphiques qui se construisent à l'écran.",
 			"Ces séquences rythment leurs vidéos YouTube et leurs publications, et rendent concret un travail souvent difficile à montrer."
 		],
 		"cover": {
@@ -162,7 +162,7 @@
 	{
 		"slug": "formats-verticaux",
 		"title": "Formats verticaux",
-		"category": "Podcast",
+		"category": "Divers",
 		"year": null,
 		"details": [],
 		"summary": "Des vidéos verticales conçues de A à Z : écriture, lumière, tournage et montage.",
@@ -189,7 +189,7 @@
 			},
 			{
 				"type": "embed",
-				"src": "https://www.youtube-nocookie.com/embed/mz1hH2d7fKs",
+				"src": "https://www.youtube-nocookie.com/embed/qPMwapIGCEc",
 				"alt": "CLOSE-UP"
 			},
 			{

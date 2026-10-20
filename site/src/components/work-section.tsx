@@ -21,7 +21,7 @@ type View = 'grille' | 'liste';
 
 export default function WorkSection({ onOpen }: { onOpen: (index: number) => void }) {
 	const [filter, setFilter] = useState(ALL);
-	const [view, setView] = useState<View>('grille');
+	const [view, setView] = useState<View>('liste');
 	const [limit, setLimit] = useState(FIRST_PAGE);
 
 	const chooseFilter = (category: string) => {

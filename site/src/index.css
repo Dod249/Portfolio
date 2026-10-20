@@ -1,15 +1,16 @@
 @import 'tailwindcss';
 
 @theme {
-  --font-sans: 'Geist Mono', ui-monospace, SFMono-Regular, monospace;
-  --font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, monospace;
-  --font-pixel: 'Geist Pixel', 'Geist Mono', ui-monospace, monospace;
+  /* V2 Timeline : interface de logiciel de montage */
+  --font-sans: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+  --font-pixel: 'Space Grotesk', system-ui, sans-serif;
 
   /* Strictly black & white */
-  --color-ink: #0e0e0e;
-  --color-paper: #f2f2f2;
-  --color-stone: #7b7b7b;
-  --color-line: #262626;
+  --color-ink: #16161a;
+  --color-paper: #e6e6eb;
+  --color-stone: #85858f;
+  --color-line: #2e2e36;
   /* Accent: only on small details. Defaults to white = pure black & white.
      Set at runtime from THEME in src/data/site.ts */
   --color-accent: #f2f2f2;

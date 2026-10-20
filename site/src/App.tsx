@@ -10,6 +10,7 @@ import ProjectModal from '@/components/project-modal';
 import SiteFooter from '@/components/site-footer';
 import SiteHeader from '@/components/site-header';
 import TestimonialsSection from '@/components/testimonials-section';
+import TimelineBar from '@/components/timeline-bar';
 import Ticker from '@/components/ticker';
 import WorkSection from '@/components/work-section';
 import { SITE } from '@/data/site';
@@ -39,12 +40,15 @@ export default function App() {
       </main>
 
       <SiteFooter />
+      {/* Room for the timeline fixed at the bottom */}
+      <div aria-hidden="true" className="h-16 bg-ink sm:h-20" />
+      <TimelineBar />
 
       <ProjectModal index={openProject} onClose={closeProject} onNavigate={setOpenProject} />
       <PixelCursor />
 
       {/* Film grain over the whole site */}
-      <div aria-hidden="true" className="grain pointer-events-none fixed inset-0 z-[60] opacity-[0.07]" />
+      <div aria-hidden="true" className="grain pointer-events-none fixed inset-0 z-[60] opacity-[0.03]" />
     </>
   );
 }

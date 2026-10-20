@@ -109,7 +109,7 @@ function ProjectCard({
 				aria-label={`Ouvrir le projet ${project.title}`}
 				className="group block w-full cursor-pointer text-left outline-none"
 			>
-				<div className="relative">
+				<div className="relative overflow-hidden rounded-lg border border-line border-t-[3px] border-t-accent bg-[#1d1d23] p-1.5">
 					<PixelImage
 						src={imageUrl(project.cover.src, 1200)}
 						alt={project.cover.alt}

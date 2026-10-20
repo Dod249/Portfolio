@@ -85,7 +85,7 @@ export default function ProcessSection() {
 								<span key={i} className={cn('h-2 flex-1', i < filled ? 'bg-accent' : 'bg-line')} />
 							))}
 						</div>
-						<span>{progress >= 1 ? 'Prêt ✓' : 'En cours'}</span>
+						<span>{progress >= 1 ? 'Export terminé ✓' : 'Rendu en cours'}</span>
 					</div>
 
 					<ol className="grid gap-12 md:grid-cols-3 lg:gap-8">

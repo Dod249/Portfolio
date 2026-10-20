@@ -41,11 +41,11 @@ export type ExtraField =
 
 export const COPY = {
 	hero: {
-		label: 'Portfolio',
+		label: 'Séquence 01',
 		tagline: 'Podcasts, interviews, motion design. Huit images pour entrer dans la salle de montage.',
 	},
 	intro: {
-		label: '01 — Studio',
+		label: 'Piste V1 — Studio',
 		title: ['Monteur vidéo', '& motion design.'],
 		text: 'Podcasts vidéo, interviews et films corporate. Un montage rythmé, des habillages animés sur mesure, des vidéos prêtes à publier.',
 		primaryCta: 'Démarrer un projet',
@@ -53,16 +53,16 @@ export const COPY = {
 	},
 	services: { label: 'Services' },
 	work: {
-		label: '02 — Travaux',
+		label: 'Piste V2 — Travaux',
 		title: ['Projets', 'récents.'],
 		text: 'Podcasts, films d’entreprise, motion design et fiction. Cliquez sur un projet pour découvrir les images.',
 	},
 	process: {
-		label: '03 — Processus',
+		label: 'Piste V3 — Processus',
 		title: ['Du brief', 'à la diffusion.'],
 	},
 	about: {
-		label: '04 — À propos',
+		label: 'Piste V4 — À propos',
 		title: ['Le rythme', "d'abord."],
 		text: "Je suis Hugo Dodeur, monteur vidéo et motion designer. J'ai monté plus d'une centaine de vidéos (podcasts, interviews, tutoriels face caméra) et je donne à chaque marque un rythme et un habillage qui lui ressemblent.",
 		cta: 'Travaillons ensemble',
@@ -70,18 +70,18 @@ export const COPY = {
 		face: { x0: 0.34, y0: 0.12, x1: 0.7, y1: 0.58 },
 	},
 	testimonials: {
-		label: '05 — Ils en parlent',
+		label: 'Piste V5 — Ils en parlent',
 		rating: '5/5 · clients accompagnés',
 	},
 	faq: {
-		label: '06 — FAQ',
+		label: 'Piste V6 — FAQ',
 		title: ['Questions', 'fréquentes.'],
 		aside: 'Une autre question ?',
 		asideLink: 'Écrivez-moi',
 		asideEnd: ', je réponds sous 24 h.',
 	},
 	contact: {
-		label: '07 — Contact',
+		label: 'Piste V7 — Contact',
 		title: ['Parlons', 'vidéo.'],
 		text: 'Racontez-moi votre projet : je vous réponds sous 24 h avec une proposition et un devis.',
 		typeLabel: 'Type de projet',

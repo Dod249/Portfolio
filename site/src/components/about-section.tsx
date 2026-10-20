@@ -18,7 +18,7 @@ export default function AboutSection() {
 						protect={COPY.about.face}
 						fullReveal
 						color
-						className="aspect-[4/5] w-full"
+						className="aspect-[4/5] w-full rounded-lg"
 					/>
 				</div>
 

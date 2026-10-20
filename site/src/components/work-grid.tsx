@@ -18,6 +18,10 @@ const ratioOf = (p: Project) => {
 	const r = width && height ? width / height : 4 / 5;
 	return Math.min(MAX_RATIO, Math.max(MIN_RATIO, r));
 };
+/** Hand-picked framing for some covers (0 = top, 1 = bottom), by project slug. */
+const FOCUS: Record<string, number> = {
+	'formats-verticaux': 0.85, // the title and the film stills, not the face
+};
 const isTall = (p: Project) => !!(p.cover.width && p.cover.height) && p.cover.width / p.cover.height < MIN_RATIO;
 // Card height in column widths: the image plus the caption under it
 const heightOf = (p: Project) => 1 / ratioOf(p) + 0.4;
@@ -116,8 +120,9 @@ function ProjectCard({
 						alt={project.cover.alt}
 						className="w-full rounded-lg grayscale transition-[filter] duration-700 group-hover:grayscale-0 group-focus-visible:grayscale-0"
 						style={{ aspectRatio: ratioOf(project) }}
-						// Tall shots are cropped: keep the top part, where faces usually are
-						focusY={isTall(project) ? 0.08 : 0.5}
+						// Tall shots are cropped: keep the top part, where faces usually are,
+						// unless the project sets its own framing
+						focusY={FOCUS[project.slug] ?? (isTall(project) ? 0.08 : 0.5)}
 						imgClassName="transition-transform duration-[1.4s] ease-out group-hover:scale-[1.04]"
 					/>
 

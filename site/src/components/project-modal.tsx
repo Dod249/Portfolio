@@ -74,6 +74,63 @@ function YouTubeFacade({ src, title }: { src: string; title: string }) {
 	);
 }
 
+/** Playlist id of an embed URL (…/embed/videoseries?list=<id>), or null. */
+const playlistId = (src: string) => (/\/embed\/videoseries/.test(src) ? new URL(src).searchParams.get('list') : null);
+
+/**
+ * YouTube playlist: the project's cover with a play button. On click the
+ * standard youtube.com player loads (the most widely supported one), and a
+ * link always opens the playlist on YouTube in case the player is blocked.
+ */
+function PlaylistFacade({ list, title, poster }: { list: string; title: string; poster: string }) {
+	const [playing, setPlaying] = useState(false);
+	const youtubeUrl = `https://www.youtube.com/playlist?list=${encodeURIComponent(list)}`;
+
+	return (
+		<div>
+			{playing ? (
+				<div className="relative aspect-video w-full overflow-hidden bg-line">
+					<iframe
+						src={`https://www.youtube.com/embed/videoseries?list=${encodeURIComponent(list)}&autoplay=1&rel=0`}
+						title={title}
+						allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
+						referrerPolicy="strict-origin-when-cross-origin"
+						allowFullScreen
+						className="absolute inset-0 h-full w-full border-0"
+					/>
+				</div>
+			) : (
+				<button
+					type="button"
+					onClick={() => setPlaying(true)}
+					aria-label={`Lire la playlist : ${title}`}
+					className="group relative block aspect-video w-full overflow-hidden bg-line"
+				>
+					<img
+						src={poster}
+						alt=""
+						loading="lazy"
+						className="absolute inset-0 h-full w-full object-cover opacity-60 grayscale transition-[filter,opacity] duration-500 group-hover:opacity-100 group-hover:grayscale-0"
+					/>
+					<span className="absolute inset-0 grid place-items-center">
+						<span className="flex items-center gap-3 border border-paper bg-ink px-4 py-3 text-[11px] uppercase tracking-[0.2em] text-paper transition-colors group-hover:bg-paper group-hover:text-ink">
+							<span className="size-2 bg-accent" aria-hidden="true" />▶ Lire la playlist
+						</span>
+					</span>
+				</button>
+			)}
+			<a
+				href={youtubeUrl}
+				target="_blank"
+				rel="noopener noreferrer"
+				className="mt-2 inline-block text-[10px] uppercase tracking-[0.2em] text-stone hover:text-paper"
+			>
+				Ouvrir la playlist sur YouTube ↗
+			</a>
+		</div>
+	);
+}
+
 export default function ProjectModal({ index, onClose, onNavigate }: ProjectModalProps) {
 	// The project on screen lags behind `index` so open/close/switch can animate
 	const [shown, setShown] = useState<number | null>(null);
@@ -310,6 +367,12 @@ export default function ProjectModal({ index, onClose, onNavigate }: ProjectModa
 								<figure key={image.src} className={wide ? 'col-span-2' : undefined}>
 									{image.type === 'embed' && youtubeId(image.src) ? (
 										<YouTubeFacade src={image.src} title={image.alt || `Vidéo ${i + 1} — ${project.title}`} />
+									) : image.type === 'embed' && playlistId(image.src) ? (
+										<PlaylistFacade
+											list={playlistId(image.src)!}
+											title={image.alt || `Playlist — ${project.title}`}
+											poster={imageUrl(project.cover.src, 1600)}
+										/>
 									) : image.type === 'embed' ? (
 										<div className="relative aspect-video w-full overflow-hidden bg-line">
 											<iframe

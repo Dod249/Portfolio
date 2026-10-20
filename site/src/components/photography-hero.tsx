@@ -208,7 +208,7 @@ export default function PhotographyHero({
 						className="mb-6 text-[11px] uppercase tracking-[0.25em] md:mb-8"
 					/>
 				)}
-				<h1 className="font-pixel text-[clamp(3.25rem,12vw,10.5rem)] uppercase leading-[0.86] tracking-tight">
+				<h1 className="font-pixel text-[clamp(2.75rem,10.2vw,8.9rem)] uppercase leading-[0.86] tracking-tight">
 					{words.map((word, i) => (
 						<span key={word} className="flex items-center justify-center">
 							<DecodeText

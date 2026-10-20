@@ -28,7 +28,7 @@ const youtubeId = (src: string) => {
  * YouTube video shown as its thumbnail with a play button; the player only
  * loads (and starts) on click — lighter than one iframe per video.
  */
-function YouTubeFacade({ src, title }: { src: string; title: string }) {
+function YouTubeFacade({ src, title, compact = false }: { src: string; title: string; compact?: boolean }) {
 	const id = youtubeId(src)!;
 	const [playing, setPlaying] = useState(false);
 	const [thumb, setThumb] = useState(`https://i.ytimg.com/vi/${id}/maxresdefault.jpg`);
@@ -66,8 +66,8 @@ function YouTubeFacade({ src, title }: { src: string; title: string }) {
 				className="absolute inset-0 h-full w-full object-cover grayscale transition-[filter] duration-500 group-hover:grayscale-0 group-focus-visible:grayscale-0"
 			/>
 			<span className="absolute inset-0 grid place-items-center">
-				<span className="flex items-center gap-3 border border-paper bg-ink px-4 py-3 text-[11px] uppercase tracking-[0.2em] text-paper transition-colors group-hover:bg-paper group-hover:text-ink">
-					<span className="size-2 bg-accent" aria-hidden="true" />▶ Lire
+				<span className={cn('flex items-center border border-paper bg-ink uppercase text-paper transition-colors group-hover:bg-paper group-hover:text-ink', compact ? 'gap-2 px-2.5 py-1.5 text-[10px]' : 'gap-3 px-4 py-3 text-[11px] tracking-[0.2em]')}>
+					<span className="size-2 bg-accent" aria-hidden="true" />{compact ? '▶' : '▶ Lire'}
 				</span>
 			</span>
 		</button>
@@ -126,6 +126,33 @@ function PlaylistFacade({ list, title, poster }: { list: string; title: string; 
 				className="mt-2 inline-block text-[10px] uppercase tracking-[0.2em] text-stone hover:text-paper"
 			>
 				Ouvrir la playlist sur YouTube ↗
+			</a>
+		</div>
+	);
+}
+
+/**
+ * A YouTube playlist shown as what it is: a grid of its videos. Each one plays
+ * in place when clicked; a link opens the whole playlist on YouTube.
+ */
+function PlaylistGrid({ list, videos }: { list: string; videos: { id: string; title: string }[] }) {
+	return (
+		<div>
+			<div className="grid grid-cols-2 gap-3 md:grid-cols-3">
+				{videos.map((video) => (
+					<div key={video.id} className="min-w-0">
+						<YouTubeFacade src={`https://www.youtube-nocookie.com/embed/${video.id}`} title={video.title} compact />
+						<p className="mt-1.5 line-clamp-2 text-[11px] leading-snug text-paper/70">{video.title}</p>
+					</div>
+				))}
+			</div>
+			<a
+				href={`https://www.youtube.com/playlist?list=${encodeURIComponent(list)}`}
+				target="_blank"
+				rel="noopener noreferrer"
+				className="mt-3 inline-block text-[10px] uppercase tracking-[0.2em] text-stone hover:text-paper"
+			>
+				Voir la playlist sur YouTube · {videos.length} vidéos ↗
 			</a>
 		</div>
 	);
@@ -367,6 +394,8 @@ export default function ProjectModal({ index, onClose, onNavigate }: ProjectModa
 								<figure key={image.src} className={wide ? 'col-span-2' : undefined}>
 									{image.type === 'embed' && youtubeId(image.src) ? (
 										<YouTubeFacade src={image.src} title={image.alt || `Vidéo ${i + 1} — ${project.title}`} />
+									) : image.type === 'embed' && playlistId(image.src) && image.videos?.length ? (
+										<PlaylistGrid list={playlistId(image.src)!} videos={image.videos} />
 									) : image.type === 'embed' && playlistId(image.src) ? (
 										<PlaylistFacade
 											list={playlistId(image.src)!}

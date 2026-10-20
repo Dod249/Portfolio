@@ -9,6 +9,8 @@ export interface ProjectImage {
 	/** Pixel size of the file (cover only), so the grid keeps its proportions. */
 	width?: number;
 	height?: number;
+	/** YouTube playlist only: its videos, listed when the projects are published. */
+	videos?: { id: string; title: string }[];
 }
 
 export interface Project {

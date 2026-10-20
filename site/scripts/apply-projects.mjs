@@ -338,6 +338,29 @@ const projects = docs
 	})
 	.filter(Boolean);
 
+// Playlists: list their videos (public YouTube feed, last 15) so the site can show them as a grid
+const warnings = [];
+const decodeXml = (s) =>
+	s.replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&');
+for (const project of projects) {
+	for (const item of project.gallery) {
+		const list = item.type === 'embed' && /\/embed\/videoseries/.test(item.src) ? new URL(item.src).searchParams.get('list') : null;
+		if (!list) continue;
+		try {
+			const res = await fetch(`https://www.youtube.com/feeds/videos.xml?playlist_id=${encodeURIComponent(list)}`, {
+				signal: AbortSignal.timeout(15000),
+			});
+			if (!res.ok) throw new Error(`HTTP ${res.status}`);
+			const xml = await res.text();
+			item.videos = [...xml.matchAll(/<entry>[\s\S]*?<yt:videoId>([\w-]+)<\/yt:videoId>[\s\S]*?<title>([^<]*)<\/title>/g)].map(
+				([, id, title]) => ({ id, title: decodeXml(title) })
+			);
+		} catch (e) {
+			warnings.push(`Playlist ${list} : liste des vidéos indisponible (${e.message}), lecteur YouTube utilisé à la place`);
+		}
+	}
+}
+
 fs.writeFileSync(outFile, JSON.stringify(projects, null, '\t') + '\n');
 
 let pruned = 0;
@@ -355,6 +378,7 @@ console.log(
 		published: projects.length,
 		hidden: docs.length - projects.length - problems.length,
 		skipped: problems,
+		...(warnings.length ? { warnings } : {}),
 		pruned,
 		output: path.relative(root, outFile),
 	})

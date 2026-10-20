@@ -140,7 +140,57 @@
 			{
 				"type": "embed",
 				"src": "https://www.youtube-nocookie.com/embed/videoseries?list=PLpMLplb9_XVUOR11lRrZDixFQPSRlkn2L",
-				"alt": "Playlist Le Cheat Code"
+				"alt": "Playlist Le Cheat Code",
+				"videos": [
+					{
+						"id": "-pWGljNmYSM",
+						"title": "Nicolas Decaudain, créer un cabinet en gestion de patrimoine aligné avec les intérêts des clients"
+					},
+					{
+						"id": "4Ci388FPOis",
+						"title": "Automatisation & Cabinet d'Avocats : Produire plus et mieux"
+					},
+					{
+						"id": "5ZYEWRL0GpI",
+						"title": "Harry Seror : avocat en IP/IT : l'impact de l'IA et des Legaltech chez les avocats ?"
+					},
+					{
+						"id": "7W47RpPY7HI",
+						"title": "Entrepreneuriat et droit : le pari réussi d’Agathe Lengereau"
+					},
+					{
+						"id": "AsJG4GprQWM",
+						"title": "Marlone Zard : du burnout à la création du cabinet Howard, un parcours inspirant"
+					},
+					{
+						"id": "IDwE13InxDg",
+						"title": "Comment réussir le lancement de son cabinet ? L’ascension de Mathieu Rousselot, avocat à Toulouse"
+					},
+					{
+						"id": "SlqD35xnE2g",
+						"title": "Crypto : entre opportunités et pièges, l’analyse d’Alexandre Lourimi"
+					},
+					{
+						"id": "eHmDhTDQQ8o",
+						"title": "LE GÉNÉRAL RENIER PARTAGE SON ART DU COMMANDEMENT | Robert Renier, Général 4 étoiles"
+					},
+					{
+						"id": "npPWzM_tZYI",
+						"title": "Urbanisme et construction : le retour d’expérience des fondateurs d’Asten Avocats"
+					},
+					{
+						"id": "oeI2FhT48Ow",
+						"title": "Nicolas Planard : doubler son CA grâce à une caméra !"
+					},
+					{
+						"id": "p77hLXsAJxg",
+						"title": "Pourquoi tous les Français tombent en burn-out ! | Sophie Reichman"
+					},
+					{
+						"id": "q0Fgs-B5VTk",
+						"title": "François Mazon : du monde de l’entreprise au droit pénal des affaires"
+					}
+				]
 			},
 			{
 				"type": "embed",
@@ -266,7 +316,69 @@
 			{
 				"type": "embed",
 				"src": "https://www.youtube-nocookie.com/embed/videoseries?list=PLpMLplb9_XVX75GsnUPZcDhIa5YTm9-Ma",
-				"alt": "Playlist « Qui veut consolider le marché ? »"
+				"alt": "Playlist « Qui veut consolider le marché ? »",
+				"videos": [
+					{
+						"id": "xKIcalVBVIE",
+						"title": "\"Si nous restons utiles, quoi qu'il arrive, nous resterons.\" - Valentin Doligé"
+					},
+					{
+						"id": "mwKwhePtEQQ",
+						"title": "Aller à l'international… ou perdre ses meilleurs clients - Valentin Doligé"
+					},
+					{
+						"id": "wY62WQwcf3Q",
+						"title": "La cible idéale d'Orcom - Valentin Doligé"
+					},
+					{
+						"id": "09U4pCrB2SQ",
+						"title": "\"Notre ambition c'est d'ouvrir des territoires d’opportunité\" - Valentin Doligé"
+					},
+					{
+						"id": "GnDfiuiTbS8",
+						"title": "Archipel ne rachète pas des cabinets pour les empiler - Matthieu Luneau"
+					},
+					{
+						"id": "EDTqpoCS4sE",
+						"title": "\"On n'a aucune crédibilité pour s'adresser au client final.\" - Matthieu Luneau"
+					},
+					{
+						"id": "ctzauq48pZ4",
+						"title": "Créer l’un des leaders français de l’expertise comptable - Matthieu Luneau"
+					},
+					{
+						"id": "D1njtXWGJwY",
+						"title": "Vrai ou faux : Dans 5 ans, 80% du marché sera consolidé ? Matthieu Luneau"
+					},
+					{
+						"id": "iHC1PWd6pRs",
+						"title": "Un groupe créé par des entrepreneurs, pour des entrepreneurs - Matthieu Luneau"
+					},
+					{
+						"id": "0HR9e85E340",
+						"title": "Réconcilier cabinet et innovation - Qui veut consolider le marché ?"
+					},
+					{
+						"id": "EC0EwimJkAE",
+						"title": "\"Croître vite ? Ce n'est pas forcément la bonne question\" - Qui veut consolider le marché ?"
+					},
+					{
+						"id": "a9L7Sca86ic",
+						"title": "Vrai ou faux : Le modèle unique du cabinet est condamné ? - Qui veut consolider le marché ?"
+					},
+					{
+						"id": "BBE0HKS1BCc",
+						"title": "”On ne veut pas créer une constellation de cabinets indépendants\" - Qui veut consolider le marché ?"
+					},
+					{
+						"id": "j3tgE7Reva0",
+						"title": "Endrix × Impulse Data : quand la data devient un levier stratégique - Qui veut consolider le marché"
+					},
+					{
+						"id": "WFFuJjgFh4o",
+						"title": "Guillaume Bazan - Qui veut consolider le marché ?"
+					}
+				]
 			},
 			{
 				"type": "embed",

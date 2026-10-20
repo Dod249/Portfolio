@@ -66,7 +66,7 @@ export default function ProcessSection() {
 
 	return (
 		<section id="processus" className="relative z-10 scroll-mt-20 border-t border-line bg-stage">
-			<div className="mx-auto max-w-[1400px] px-5 pb-24 pt-16 md:px-10 md:pb-36 md:pt-20">
+			<div className="mx-auto max-w-[1400px] px-5 pb-16 pt-16 md:px-10 md:pb-20 md:pt-20">
 				<div className="flex flex-col items-center text-center">
 					<DecodeText as="p" text={COPY.process.label} className="text-[11px] uppercase tracking-[0.25em] text-label" />
 					<h2 className="mt-5 font-pixel text-[clamp(2.5rem,7vw,6rem)] uppercase leading-[0.9] tracking-tight">
